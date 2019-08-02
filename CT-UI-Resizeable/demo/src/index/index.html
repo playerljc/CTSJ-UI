@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ct-resizeable {
+      width: 80%;
+      height: 100%;
+      position: relative;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      user-select: none;
+
+      box-sizing: border-box;
+      margin: 15% auto;
+      border: 1px solid #ccc;
+    }
+
+    .ct-resizeable-item {
+      position: absolute;
+      box-sizing: border-box;
+    }
+
+    .r1 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      background-color: red;
+      left: 300px;
+      top: 100px;
+      z-index: 1;
+    }
+
+    .r2 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      background-color: green;
+      left: 600px;
+      top: 100px;
+      z-index: 2;
+    }
+
+    .r3 {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      background-color: yellow;
+      left: 900px;
+      top: 100px;
+      z-index: 3;
+    }
+
+    #rect {
+      position: fixed;
+      box-sizing: border-box;
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      background-color: red;
+      left: 300px;
+      top: 100px;
+      z-index: 1;
+    }
+  </style>
+  <script>
+    /**
+     * Resizeable
+     * @param el
+     * @param parent
+     */
+    function Resizeable(el, parent, id) {
+      this.id = id;
+      this.el = el;
+      this.parent = parent;
+      this.initVar();
+      this.initEvents();
+    }
+
+    Resizeable.prototype = {
+      initVar: function () {
+        // 边缘的步进
+        this.edgeStep = 5;
+        // 最小宽度
+        this.minWidth = 2;
+        // 最小高度
+        this.minHeight = 2;
+
+        // 是否可以resize
+        this.isCanResize = false;
+        // 是否down
+        this.isDown = false;
+        // down的原点
+        this.baseX = null;
+        this.baseY = null;
+
+        // el的baseWith
+        this.baseWidth = this.el.offsetWidth;
+        // el的baseHeight
+        this.baseHeight = this.el.offsetHeight;
+        // 左侧的临界值
+        this.leftCritical = -this.baseWidth + this.minWidth;
+        // 右侧的临界值
+        this.rightCritical = this.baseWidth - this.minWidth;
+        // 上方的临界值
+        this.topCritical = -this.baseHeight + this.minHeight;
+        // 下方的临界值
+        this.bottomCritical = this.baseHeight - this.minHeight;
+        // 方向
+        this.direction = null;
+
+        // clientX
+        this.clientX = this.el.offsetLeft;
+        // clientY
+        this.clientY = this.el.offsetTop;
+      },
+      initEvents: function () {
+        var self = this;
+        /**
+         * el mousedown
+         */
+        this.el.addEventListener('mousedown', function (e) {
+          if (!self.isCanResize) {
+            // console.log('el down no');
+            return false;
+          }
+          // console.log('el down yes');
+          self.isDown = true;
+          self.parent.cur = self;
+          self.baseX = e.clientX;
+          self.baseY = e.clientY;
+        });
+
+        /**
+         * el mousemove
+         */
+        this.el.addEventListener('mousemove', function (e) {
+          // console.log('555');
+          if (self.parent.cur && self.parent.cur !== self) {
+            // console.log('el-mousemove', self.id);
+            return false;
+          }
+
+          // 开启拖动模式
+          if (self.isCanResize && self.isDown) {
+            // el的mousemove不处理，放parent的mousemove处理
+            return false;
+          }
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          self.rect = self.el.getBoundingClientRect();
+          var clientX = e.clientX;
+          var clientY = e.clientY;
+
+          // console.log(clientX, clientY);
+
+          if (clientX - self.edgeStep <= self.rect.left && clientY - self.edgeStep > self.rect.top && clientY + self.edgeStep < self.rect.bottom) {
+            self.direction = 'left';
+            self.isCanResize = true;
+            self.el.style.cursor = 'w-resize';
+          } else if (clientX + self.edgeStep >= self.rect.right && clientY - self.edgeStep > self.rect.top && clientY + self.edgeStep < self.rect.bottom) {
+            self.direction = 'right';
+            self.isCanResize = true;
+            self.el.style.cursor = 'e-resize';
+          } else if (clientX - self.edgeStep <= self.rect.left && clientY - self.edgeStep <= self.rect.top) {
+            self.direction = 'lefttop';
+            self.isCanResize = true;
+            self.el.style.cursor = 'nw-resize';
+          } else if (clientX - self.edgeStep <= self.rect.left && clientY + self.edgeStep >= self.rect.bottom) {
+            self.direction = 'leftbottom';
+            self.isCanResize = true;
+            self.el.style.cursor = 'sw-resize';
+          } else if (clientX + self.edgeStep >= self.rect.right && clientY - self.edgeStep <= self.rect.top) {
+            self.direction = 'righttop';
+            self.isCanResize = true;
+            self.el.style.cursor = 'ne-resize';
+          } else if (clientX + self.edgeStep >= self.rect.right && clientY + self.edgeStep >= self.rect.bottom) {
+            self.direction = 'rightbottom';
+            self.isCanResize = true;
+            self.el.style.cursor = 'se-resize';
+          } else if (clientY - self.edgeStep <= self.rect.top && clientX - self.edgeStep > self.rect.left && clientX + self.edgeStep < self.rect.right) {
+            self.direction = 'top';
+            self.isCanResize = true;
+            self.el.style.cursor = 'n-resize';
+          } else if (clientY + self.edgeStep >= self.rect.bottom && clientX - self.edgeStep > self.rect.left && clientX + self.edgeStep < self.rect.right) {
+            self.direction = 'bottom';
+            self.isCanResize = true;
+            self.el.style.cursor = 's-resize';
+          } else {
+            self.isCanResize = false;
+            self.parent.cur = null;
+            self.el.style.cursor = 'default';
+          }
+        });
+      },
+      reset: function () {
+        this.isCanResize = false;
+        this.isDown = false;
+        this.baseX = null;
+        this.baseY = null;
+        this.baseWidth = this.el.offsetWidth;
+        this.baseHeight = this.el.offsetHeight;
+        // 左侧的临界值
+        this.leftCritical = -this.baseWidth + this.minWidth;
+        // 右侧的临界值
+        this.rightCritical = this.baseWidth - this.minWidth;
+        // 上方的临界值
+        this.topCritical = -this.baseHeight + this.minHeight;
+        // 下方的临界值
+        this.bottomCritical = this.baseHeight - this.minHeight;
+        this.clientX = this.el.offsetLeft;
+        this.clientY = this.el.offsetTop;
+        // this.rect = this.el.getBoundingClientRect();
+        this.direction = null;
+      }
+    };
+
+    /**
+     * ResizeableManager
+     * @param el
+     */
+    function ResizeableManager(el) {
+      this.el = el;
+      this.rect = this.el.getBoundingClientRect();
+      this.cur = null;
+      this.initEvents();
+      this.init();
+    }
+
+    ResizeableManager.prototype = {
+      initEvents: function () {
+        var self = this;
+        /**
+         * body mousemove
+         */
+        self.el.addEventListener('mousemove', function (e) {
+          // console.log('body-mousemove', self.cur.id);
+          // console.log('666');
+          if (!(self.cur && self.cur.isCanResize && self.cur.isDown)) {
+            if (self.cur) {
+              self.reset();
+            }
+            return false;
+          }
+
+          var clientX = e.clientX;
+          var clientY = e.clientY;
+
+          var width = clientX - self.cur.baseX;
+          var height = clientY - self.cur.baseY;
+
+          // var curStyle = window.getComputedStyle(self.cur.el);
+          var left = self.cur.clientX; //self.cur.rect.left - self.rect.left;
+          var top = self.cur.clientY; //self.cur.rect.top - self.rect.top;
+
+          if (self.cur.direction === 'right') {
+            self.cur.el.style.width = width > self.cur.leftCritical ? (self.cur.baseWidth + width) + 'px' : self.cur.minWidth + 'px';
+          } else if (self.cur.direction === 'left') {
+            self.cur.el.style.width = width < self.cur.rightCritical ? (self.cur.baseWidth - width) + 'px' : self.cur.minWidth + 'px';
+            self.cur.el.style.left = width < self.cur.rightCritical ? (left + width) + 'px' : (left + self.cur.rightCritical) + 'px';
+          } else if (self.cur.direction === 'top') {
+            self.cur.el.style.height = height < self.cur.bottomCritical ? (self.cur.baseHeight - height) + 'px' : self.cur.minHeight + 'px';
+            self.cur.el.style.top = height < self.cur.bottomCritical ? (top + height) + 'px' : (top + self.cur.bottomCritical) + 'px';
+          } else if (self.cur.direction === 'bottom') {
+            self.cur.el.style.height = height > self.cur.topCritical ? (self.cur.baseHeight + height) + 'px' : self.cur.minHeight + 'px';
+          } else if (self.cur.direction === 'lefttop') {
+            self.cur.el.style.width = width < self.cur.rightCritical ? (self.cur.baseWidth - width) + 'px' : self.cur.minWidth + 'px';
+            self.cur.el.style.left = width < self.cur.rightCritical ? (left + width) + 'px' : (left + self.cur.rightCritical) + 'px';
+            self.cur.el.style.height = height < self.cur.bottomCritical ? (self.cur.baseHeight - height) + 'px' : self.cur.minHeight + 'px';
+            self.cur.el.style.top = height < self.cur.bottomCritical ? (top + height) + 'px' : (top + self.cur.bottomCritical) + 'px';
+          } else if (self.cur.direction === 'leftbottom') {
+            self.cur.el.style.width = width < self.cur.rightCritical ? (self.cur.baseWidth - width) + 'px' : self.cur.minWidth + 'px';
+            self.cur.el.style.left = width < self.cur.rightCritical ? (left + width) + 'px' : (left + self.cur.rightCritical) + 'px';
+            self.cur.el.style.height = height > self.cur.topCritical ? (self.cur.baseHeight + height) + 'px' : self.cur.minHeight + 'px';
+          } else if (self.cur.direction === 'righttop') {
+            self.cur.el.style.width = width > self.cur.leftCritical ? (self.cur.baseWidth + width) + 'px' : self.cur.minWidth + 'px';
+            self.cur.el.style.height = height < self.cur.bottomCritical ? (self.cur.baseHeight - height) + 'px' : self.cur.minHeight + 'px';
+            self.cur.el.style.top = height < self.cur.bottomCritical ? (top + height) + 'px' : (top + self.cur.bottomCritical) + 'px';
+          } else if (self.cur.direction === 'rightbottom') {
+            self.cur.el.style.width = width > self.cur.leftCritical ? (self.cur.baseWidth + width) + 'px' : self.cur.minWidth + 'px';
+            self.cur.el.style.height = height > self.cur.topCritical ? (self.cur.baseHeight + height) + 'px' : self.cur.minHeight + 'px';
+          }
+        });
+
+        /**
+         * body mouseup
+         **/
+        self.el.addEventListener('mouseup', function () {
+          if (!(self.cur && self.cur.isCanResize && self.cur.isDown)) {
+            // console.log('抬起，没reset');
+            return false;
+          }
+          // console.log('抬起，reset');
+          self.reset();
+        });
+      },
+      reset: function () {
+        if (this.cur) {
+          this.cur.reset();
+        }
+        this.cur = null;
+      },
+      init: function () {
+        var els = this.el.querySelectorAll('.ct-resizeable-item');
+        this.ins = [];
+        for (var i = 0; i < els.length; i++) {
+          this.ins.push(new Resizeable(els[i], this, i));
+        }
+      },
+      refresh: function () {
+        this.init();
+      }
+    };
+
+    window.onload = function () {
+      // var el = document.getElementById('rect');
+      //
+      // // 边缘的步进
+      // var edgeStep = 5;
+      // // 最小宽度
+      // var minWidth = 2;
+      // // 最小高度
+      // var minHeight = 2;
+      //
+      // var rect = el.getBoundingClientRect();
+      // // 是否可以resize
+      // var isCanResize = false;
+      // // 是否down
+      // var isDown = false;
+      // // down的原点
+      // var baseX;
+      // var baseY;
+      // // el的baseWith
+      // var baseWidth = el.offsetWidth;
+      // // el的baseHeight
+      // var baseHeight = el.offsetHeight;
+      // // 左侧的临界值
+      // var leftCritical = -baseWidth + minWidth;
+      // // 右侧的临界值
+      // var rightCritical = baseWidth - minWidth;
+      // // 上方的临界值
+      // var topCritical = -baseHeight + minHeight;
+      // // 下方的临界值
+      // var bottomCritical = baseHeight - minHeight;
+      // // 方向
+      // var direction = null;
+      //
+      //
+      // /**
+      //  * body mousemove
+      //  */
+      // document.body.addEventListener('mousemove', function (e) {
+      //   if (!(isCanResize && isDown)) {
+      //     isCanResize = false;
+      //     return false;
+      //   }
+      //
+      //   var clientX = e.clientX;
+      //   var clientY = e.clientY;
+      //
+      //   var width = clientX - baseX;
+      //   var height = clientY - baseY;
+      //
+      //
+      //   if (direction === 'right') {
+      //     el.style.width = width > leftCritical ? (baseWidth + width) + 'px' : minWidth + 'px';
+      //   } else if (direction === 'left') {
+      //     el.style.width = width < rightCritical ? (baseWidth - width) + 'px' : minWidth + 'px';
+      //     el.style.left = width < rightCritical ? (rect.left + width) + 'px' : (rect.left + rightCritical) + 'px';
+      //   } else if (direction === 'top') {
+      //     el.style.height = height < bottomCritical ? (baseHeight - height) + 'px' : minHeight + 'px';
+      //     el.style.top = height < bottomCritical ? (rect.top + height) + 'px' : (rect.top + bottomCritical) + 'px';
+      //   } else if (direction === 'bottom') {
+      //     el.style.height = height > topCritical ? (baseHeight + height) + 'px' : minHeight + 'px';
+      //   } else if (direction === 'lefttop') {
+      //     el.style.width = width < rightCritical ? (baseWidth - width) + 'px' : minWidth + 'px';
+      //     el.style.left = width < rightCritical ? (rect.left + width) + 'px' : (rect.left + rightCritical) + 'px';
+      //     el.style.height = height < bottomCritical ? (baseHeight - height) + 'px' : minHeight + 'px';
+      //     el.style.top = height < bottomCritical ? (rect.top + height) + 'px' : (rect.top + bottomCritical) + 'px';
+      //   } else if (direction === 'leftbottom') {
+      //     el.style.width = width < rightCritical ? (baseWidth - width) + 'px' : minWidth + 'px';
+      //     el.style.left = width < rightCritical ? (rect.left + width) + 'px' : (rect.left + rightCritical) + 'px';
+      //     el.style.height = height > topCritical ? (baseHeight + height) + 'px' : minHeight + 'px';
+      //   } else if (direction === 'righttop') {
+      //     el.style.width = width > leftCritical ? (baseWidth + width) + 'px' : minWidth + 'px';
+      //     el.style.height = height < bottomCritical ? (baseHeight - height) + 'px' : minHeight + 'px';
+      //     el.style.top = height < bottomCritical ? (rect.top + height) + 'px' : (rect.top + bottomCritical) + 'px';
+      //   } else if (direction === 'rightbottom') {
+      //     el.style.width = width > leftCritical ? (baseWidth + width) + 'px' : minWidth + 'px';
+      //     el.style.height = height > topCritical ? (baseHeight + height) + 'px' : minHeight + 'px';
+      //   }
+      // });
+      //
+      // /**
+      //  * body mousedown
+      //  **/
+      // document.body.addEventListener('mouseup', function (e) {
+      //   if (!(isCanResize && isDown)) {
+      //     return false;
+      //   }
+      //   isCanResize = false;
+      //   isDown = false;
+      //   baseX = null;
+      //   baseY = null;
+      //   baseWidth = el.offsetWidth;
+      //   baseHeight = el.offsetHeight;
+      //   // 左侧的临界值
+      //   leftCritical = -baseWidth + minWidth;
+      //   // 右侧的临界值
+      //   rightCritical = baseWidth - minWidth;
+      //   // 上方的临界值
+      //   topCritical = -baseHeight + minHeight;
+      //   // 下方的临界值
+      //   bottomCritical = baseHeight - minHeight;
+      //   rect = el.getBoundingClientRect();
+      //   direction = null;
+      // });
+      //
+      //
+      // /**
+      //  * el mousedown
+      //  */
+      // el.addEventListener('mousedown', function (e) {
+      //   if (!isCanResize) return false;
+      //   isDown = true;
+      //   baseX = e.clientX;
+      //   baseY = e.clientY;
+      // });
+      //
+      // /**
+      //  * el mousemove
+      //  */
+      // el.addEventListener('mousemove', function (e) {
+      //   // 开启拖动模式
+      //   if (isCanResize && isDown) {
+      //     // el的mousemove不处理，放parent的mousemove处理
+      //     return false;
+      //   }
+      //
+      //   e.preventDefault();
+      //   e.stopPropagation();
+      //
+      //   var clientX = e.clientX;
+      //   var clientY = e.clientY;
+      //
+      //   if (clientX - edgeStep <= rect.left && clientY - edgeStep > rect.top && clientY + edgeStep < rect.bottom) {
+      //     direction = 'left';
+      //     isCanResize = true;
+      //     el.style.cursor = 'w-resize';
+      //   } else if (clientX + edgeStep >= rect.right && clientY - edgeStep > rect.top && clientY + edgeStep < rect.bottom) {
+      //     direction = 'right';
+      //     isCanResize = true;
+      //     el.style.cursor = 'e-resize';
+      //   } else if (clientX - edgeStep <= rect.left && clientY - edgeStep <= rect.top) {
+      //     direction = 'lefttop';
+      //     isCanResize = true;
+      //     el.style.cursor = 'nw-resize';
+      //   } else if (clientX - edgeStep <= rect.left && clientY + edgeStep >= rect.bottom) {
+      //     direction = 'leftbottom';
+      //     isCanResize = true;
+      //     el.style.cursor = 'sw-resize';
+      //   } else if (clientX + edgeStep >= rect.right && clientY - edgeStep <= rect.top) {
+      //     direction = 'righttop';
+      //     isCanResize = true;
+      //     el.style.cursor = 'ne-resize';
+      //   } else if (clientX + edgeStep >= rect.right && clientY + edgeStep >= rect.bottom) {
+      //     direction = 'rightbottom';
+      //     isCanResize = true;
+      //     el.style.cursor = 'se-resize';
+      //   } else if (clientY - edgeStep <= rect.top && clientX - edgeStep > rect.left && clientX + edgeStep < rect.right) {
+      //     direction = 'top';
+      //     isCanResize = true;
+      //     el.style.cursor = 'n-resize';
+      //   } else if (clientY + edgeStep >= rect.bottom && clientX - edgeStep > rect.left && clientX + edgeStep < rect.right) {
+      //     direction = 'bottom';
+      //     isCanResize = true;
+      //     el.style.cursor = 's-resize';
+      //   } else {
+      //     isCanResize = false;
+      //     console.log('default');
+      //     el.style.cursor = 'default';
+      //   }
+      //
+      // });
+
+      var resizeManagers = [];
+      var resizeableEls = document.querySelectorAll('.ct-resizeable');
+      for(var i = 0 ; i < resizeableEls.length; i++) {
+        resizeManagers.push(new ResizeableManager(resizeableEls[i]));
+      }
+
+    }
+  </script>
+</head>
+<body>
+
+<!--<div id="rect"></div>-->
+
+<div class="ct-resizeable">
+  <div class="ct-resizeable-item r1"></div>
+  <div class="ct-resizeable-item r2"></div>
+  <div class="ct-resizeable-item r3"></div>
+</div>
+
+<div class="ct-resizeable">
+  <div class="ct-resizeable-item r1"></div>
+  <div class="ct-resizeable-item r2"></div>
+  <div class="ct-resizeable-item r3"></div>
+</div>
+
+<div class="ct-resizeable">
+  <div class="ct-resizeable-item r1"></div>
+  <div class="ct-resizeable-item r2"></div>
+  <div class="ct-resizeable-item r3"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "@ctsj/ui-selectable-sd",
+  "version": "1.0.0",
+  "description": "支持PC端的UI组件-Selectable",
+  "main": "lib/selectable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc src README.md -d doc -u doc/tutorials",
+    "buildpackage": "ctcopy ../src src && ctbuild --type buildpackage",
+    "link": "npm link @ctsj/build"
+  },
+  "files":[
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playerljc/CTSJ-UI.git"
+  },
+  "keywords": [
+    "Selectable",
+    "CTSJ",
+    "CTSJ-UI",
+    "PC",
+    "webapp",
+    "SPA",
+    "Hybrid",
+    "Cordova",
+    "Android",
+    "iOS",
+    "Material",
+    "playerljc",
+    "WebFramework"
+  ],
+  "author": "playerljc <playerljc@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/playerljc/CTSJ-UI/issues"
+  },
+  "homepage": "https://github.com/playerljc/CTSJ-UI#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.2.0"
+  },
+  "devDependencies": {
+    "@ctsj/build": "^1.0.0"
+  }
+}

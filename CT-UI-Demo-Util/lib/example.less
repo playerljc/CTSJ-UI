@@ -1,0 +1,42 @@
+@import "./res/iconfont/iconfont.less";
+
+@color: #314659;
+@border-color: #ccc;
+
+.CT-UI-Example {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: @color;
+  margin-bottom: 20px;
+
+  > .CT-UI-Example-Component {
+    padding: 10px;
+  }
+
+  .CT-UI-Example-Fieldset {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid @border-color;
+  }
+
+  .CT-UI-Example-footer {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    border-top: 1px dashed @border-color;
+    border-bottom: 0;
+    padding: 10px;
+  }
+
+  .CT-UI-Example-footer.open {
+    border-bottom: 1px dashed @border-color;
+  }
+
+  .CT-UI-Example-Code {
+    display: none;
+  }
+
+  .CT-UI-Example-Code.open {
+    display: block;
+  }
+}

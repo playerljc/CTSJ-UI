@@ -1,0 +1,2 @@
+"use strict";var _interopRequireDefault=require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var _index=_interopRequireDefault(require("highlight.js/lib/index")),_default={initial:function(){for(var e=document.getElementsByClassName("html"),t=0;t<e.length;t++){var i=e[t];i.innerText=i.innerHTML}_index.default.initHighlightingOnLoad()}};exports.default=_default;
+//# sourceMappingURL=index.js.map

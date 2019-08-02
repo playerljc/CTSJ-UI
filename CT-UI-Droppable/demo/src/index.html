@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <title>ctsj-ui-drag-demo</title>
+</head>
+
+<body>
+
+<div class="ct-ui-doc">
+
+  <!-- Drag -->
+
+  <!--菜单-->
+  <h1>Drag</h1>
+  <ul>
+    <li>
+      <a href="#drag-layout">基本布局</a>
+    </li>
+
+    <li>
+      <a href="#drag-initial">初始化</a>
+    </li>
+
+    <li><a href="#drag-demo">例子</a></li>
+    <li><a href="#drag-methods">方法</a></li>
+  </ul>
+
+  <!--基本布局-->
+  <h2 id="drag-layout">基本布局</h2>
+  <dl>
+    <dt>
+<pre>
+<code class="html">
+<div class="ct-droppable-source"></div>
+<div class="ct-droppable-target"></div>
+</code>
+</pre>
+    </dt>
+    <dd>
+      <ul>
+        <li>
+          .ct-droppable-source - 可以拖动
+        </li>
+        <li>
+          .ct-droppable-target - 可以放置
+        </li>
+      </ul>
+    </dd>
+  </dl>
+
+  <!--初始化-->
+  <h2 id="drag-initial">初始化</h2>
+  <pre>
+<code class="javascript">
+import DrafFactory from '@ctmobile/ui-drag/dragtouch';
+import '@ctmobile/ui-drag/drag.less';
+const drag = DrafFactory.create(document.getElementById('container'), {
+  onPutSuccess(params) {
+    const cloneEl = params.sourceEl;
+    cloneEl.style.position = 'fixed';
+    cloneEl.style.zIndex = '9999';
+    cloneEl.style.left = `${params.rect.left}px`;
+    cloneEl.style.top = `${params.rect.top}px`;
+    const targetEls = params.targetEls;
+    targetEls[0].appendChild(cloneEl);
+    drag.refresh();
+    return true;
+  },
+  dragSourceExtendClasses: ['sourceActive'],
+  dragTargetExtendClasses: ['targetActive'],
+  isDragSourceDisplay: true,
+  isDragSourceExist: true,
+  noDragReturnAnimate: true,
+});
+</code>
+</pre>
+
+  <table class="events-table" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>说明</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{HtmlElement} - el</td>
+      <td>父容器元素</td>
+    </tr>
+    <tr>
+      <td>{object} - config</td>
+      <td>
+        <ul>
+          <li>
+            <p>指示器配置 {object} - config</p>
+            <div class="method-wrap">
+              <p>dragSourceExtendClasses {Array&lt;String&gt;} - 拖动对象的附加样式，拖动移动起来后触发</p>
+            </div>
+            <div class="method-wrap">
+              <p>dragTargetExtendClasses {Array&lt;String&gt;} - 可放置对象的附加样式，当拖动到可以放置的区域时触发</p>
+            </div>
+            <div class="method-wrap">
+              <p>isDragSourceDisplay {Boolean} - 拖动后原始节点是否显示</p>
+            </div>
+            <div class="method-wrap">
+              <p>isDragSourceExist {Boolean} - 拖动之后原始节点是否存在</p>
+            </div>
+            <div class="method-wrap">
+              <p>noDragReturnAnimate {Boolean} - 不可放置的时候松开是否有动画返回效果</p>
+            </div>
+            <div class="method-wrap">
+              <p>onPutSuccess {Function} - 可以放置时的处理</p>
+            </div>
+            <div class="method-wrap">
+              <p>onDragClone {Function} - 自定义拖动元素</p>
+            </div>
+            <div class="method-wrap">
+              <p>onSourceEnter {Function} - source节点进入</p>
+            </div>
+            <div class="method-wrap">
+              <p>onSourceLeave {Function} - source节点离开</p>
+            </div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!--例子-->
+  <h2 id="tab-demo">例子</h2>
+
+  <div id="demo1"></div>
+  <div id="demo2"></div>
+  <div id="demo3"></div>
+  <div id="demo4"></div>
+  <div id="demo5"></div>
+
+  <!--<dl>
+    <dt><h3>A-B</h3></dt>
+    <dd>
+      <div class="drag-container" id="demo1">
+        <ul class="drag-source-block" id="demo1Inner">
+          <li><span class="ct-droppable-source fa fa-qq"/></li>
+          <li><span class="ct-droppable-source fa fa-git"/></li>
+          <li><span class="ct-droppable-source fa fa-google"/></li>
+          <li><span class="ct-droppable-source fa fa-android"/></li>
+          <li><span class="ct-droppable-source fa fa-amazon"/></li>
+          <li><span class="ct-droppable-source fa fa-linux"/></li>
+        </ul>
+        <ul class="drag-target-block ct-droppable-target"></ul>
+      </div>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><h3>A-B 节点移走</h3></dt>
+    <dd>
+      <div class="drag-container" id="demo2">
+        <ul class="drag-source-block">
+          <li><span class="ct-droppable-source fa fa-qq"/></li>
+          <li><span class="ct-droppable-source fa fa-git"/></li>
+          <li><span class="ct-droppable-source fa fa-google"/></li>
+          <li><span class="ct-droppable-source fa fa-android"/></li>
+          <li><span class="ct-droppable-source fa fa-amazon"/></li>
+          <li><span class="ct-droppable-source fa fa-linux"/></li>
+        </ul>
+        <ul class="drag-target-block ct-droppable-target"></ul>
+      </div>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><h3>A-B B-A A!=A B!=B</h3></dt>
+    <dd>
+      <div class="drag-container" id="demo3">
+        <ul class="drag-source-block ct-droppable-target">
+          <li><span class="ct-droppable-source fa fa-qq"/></li>
+          <li><span class="ct-droppable-source fa fa-git"/></li>
+          <li><span class="ct-droppable-source fa fa-google"/></li>
+          <li><span class="ct-droppable-source fa fa-android"/></li>
+          <li><span class="ct-droppable-source fa fa-amazon"/></li>
+          <li><span class="ct-droppable-source fa fa-linux"/></li>
+        </ul>
+        <ul class="drag-target-block ct-droppable-target"></ul>
+      </div>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><h3>含有包含关系的用inclusionRelation属性控制</h3></dt>
+    <dd>
+      <div class="drag-container" id="demo4">
+        <ul class="drag-source-block ct-droppable-target">
+          <li><span class="ct-droppable-source fa fa-qq"/></li>
+          <li><span class="ct-droppable-source fa fa-git"/></li>
+          <li><span class="ct-droppable-source fa fa-google"/></li>
+          <li><span class="ct-droppable-source fa fa-android"/></li>
+          <li><span class="ct-droppable-source fa fa-amazon"/></li>
+          <li><span class="ct-droppable-source fa fa-linux"/></li>
+        </ul>
+        <ul class="drag-target-block ct-droppable-target">
+          <div class="ct-droppable-target"
+               style="margin: 5px;border: 1px solid #ccc;height: 100%;box-sizing: border-box;"></div>
+        </ul>
+      </div>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><h3>无限滚动</h3></dt>
+    <dd>
+      <div class="drag-container" id="demo5" style="height: 200px;">
+        <ul class="drag-source-block">
+          <li><span class="ct-droppable-source fa fa-qq"/></li>
+        </ul>
+        <ul class="drag-target-block ct-droppable-target" id="demo5Scroll" style="overflow: auto;">
+          <div style="width: 900px;height: 900px;position: relative" id="demo5Inner" class="ct-droppable-target"></div>
+        </ul>
+      </div>
+    </dd>
+  </dl>-->
+
+  <!--方法-->
+  <h2 id="tab-methods">方法</h2>
+  <div class="method-wrap">
+    <p>refreh - 刷新</p>
+  </div>
+
+</div>
+
+</body>
+</html>
