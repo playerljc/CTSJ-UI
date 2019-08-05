@@ -1,25 +1,31 @@
-.ct-drag-item,
-.ct-drag-clone {
+.ct-drag {
+  position: relative;
+}
+.ct-drag .ct-drag-item,
+.ct-drag .ct-drag-clone {
   position: absolute;
   box-sizing: border-box;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Chrome/Safari/Opera */
-  -khtml-user-select: none; /* Konqueror */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
   user-select: none;
 }
-
-.ct-drag-clone {
+.ct-drag .ct-drag-clone {
   display: none;
   border: 1px dashed #007aff;
   background-color: #fff;
 }
-
-.ct-drag-map {
+.ct-drag .ct-drag-map {
   position: absolute;
   padding: 6px;
   color: #fff;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
   font-size: 12px;
 }

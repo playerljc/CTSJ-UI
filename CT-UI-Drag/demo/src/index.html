@@ -1,52 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title></title>
-  <link rel="stylesheet" href="./ctsj-ui-drag/drag.css">
-  <script type="module" src="./index.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .ct-drag {
-      position: relative;
-      height: 100%;
-    }
-
-    .ct-drag-item {
-      width: 200px;
-      height: 100px;
-      line-height: 100px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-
-    .d1 {
-      left: 100px;
-      top: 100px;
-    }
-
-    .d2 {
-      left: 500px;
-      top: 100px;
-    }
-
-    .cloneNode {
-      background-color: #ccc;
-    }
-
-  </style>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <title>ctsj-ui-drag-demo</title>
 </head>
+
 <body>
 
-<div class="ct-drag" id="ct-drag">
-  <div class="ct-drag-item d1">drag1</div>
-  <div class="ct-drag-item d2">drag2</div>
+<div class="ct-ui-doc">
+
+  <!-- Drag -->
+
+  <!--菜单-->
+  <h1>Drag</h1>
+  <ul>
+    <li>
+      <a href="#drag-layout">基本布局</a>
+    </li>
+
+    <li>
+      <a href="#drag-initial">初始化</a>
+    </li>
+
+    <li><a href="#drag-demo">例子</a></li>
+  </ul>
+
+  <!--基本布局-->
+  <h2 id="drag-layout">基本布局</h2>
+  <dl>
+    <dt>
+<pre>
+<code class="html">
+<div class="ct-drag">
+  <div class="ct-drag-item"></div>
+  ...
+</div>
+</code>
+</pre>
+    </dt>
+    <dd>
+      <ul>
+        <li>
+          .ct-drag - 父容器
+        </li>
+        <li>
+          .ct-drag-item - 可移动对象
+        </li>
+      </ul>
+    </dd>
+  </dl>
+
+  <!--初始化-->
+  <h2 id="drag-initial">初始化</h2>
+  <pre>
+<code class="javascript">
+import DragFactory from '@ctmobile/ui-drag';
+import '@ctmobile/ui-drag/drag.less';
+DragFactory.create(document.getElementById('ct-drag'), {
+  mode: 'clone',
+  cloneClasses: ['cloneNode'],
+  showMap: true,
+});
+</code>
+</pre>
+
+  <table class="events-table" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>说明</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{HtmlElement} - el</td>
+      <td>父容器元素</td>
+    </tr>
+    <tr>
+      <td>{object} - config</td>
+      <td>
+        <ul>
+          <li>
+            <p>指示器配置 {object} - config</p>
+            <div class="method-wrap">
+              <p>mode {String} - [normal(正常模式) | clone(克隆模式)]</p>
+            </div>
+            <div class="method-wrap">
+              <p>cloneClasses {Array&lt;String&gt;} - mode为clone时移动节点的样式</p>
+            </div>
+            <div class="method-wrap">
+              <p>showMap {Boolean} - 是否显示地图</p>
+            </div>
+            <div class="method-wrap">
+              <p>moveStep {number} - 移动的步进 默认值1</p>
+            </div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!--例子-->
+  <h2 id="tab-demo">例子</h2>
+
+  <div id="demo"></div>
+
 </div>
 
 </body>

@@ -4,32 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-  <title>ctsj-ui-drag-demo</title>
+  <title>ctsj-ui-droppable-demo</title>
 </head>
 
 <body>
 
 <div class="ct-ui-doc">
 
-  <!-- Drag -->
+  <!-- Droppable -->
 
   <!--菜单-->
-  <h1>Drag</h1>
+  <h1>Droppable</h1>
   <ul>
     <li>
-      <a href="#drag-layout">基本布局</a>
+      <a href="#droppable-layout">基本布局</a>
     </li>
 
     <li>
-      <a href="#drag-initial">初始化</a>
+      <a href="#droppable-initial">初始化</a>
     </li>
 
-    <li><a href="#drag-demo">例子</a></li>
-    <li><a href="#drag-methods">方法</a></li>
+    <li><a href="#droppable-demo">例子</a></li>
+    <li><a href="#droppable-methods">方法</a></li>
   </ul>
 
   <!--基本布局-->
-  <h2 id="drag-layout">基本布局</h2>
+  <h2 id="droppable-layout">基本布局</h2>
   <dl>
     <dt>
 <pre>
@@ -52,12 +52,12 @@
   </dl>
 
   <!--初始化-->
-  <h2 id="drag-initial">初始化</h2>
+  <h2 id="droppable-initial">初始化</h2>
   <pre>
 <code class="javascript">
-import DrafFactory from '@ctmobile/ui-drag/dragtouch';
-import '@ctmobile/ui-drag/drag.less';
-const drag = DrafFactory.create(document.getElementById('container'), {
+import DrafFactory from '@ctmobile/ui-droppable';
+import '@ctmobile/ui-droppable/droppable.less';
+const droppable = DrafFactory.create(document.getElementById('container'), {
   onPutSuccess(params) {
     const cloneEl = params.sourceEl;
     cloneEl.style.position = 'fixed';
@@ -138,91 +138,6 @@ const drag = DrafFactory.create(document.getElementById('container'), {
   <div id="demo3"></div>
   <div id="demo4"></div>
   <div id="demo5"></div>
-
-  <!--<dl>
-    <dt><h3>A-B</h3></dt>
-    <dd>
-      <div class="drag-container" id="demo1">
-        <ul class="drag-source-block" id="demo1Inner">
-          <li><span class="ct-droppable-source fa fa-qq"/></li>
-          <li><span class="ct-droppable-source fa fa-git"/></li>
-          <li><span class="ct-droppable-source fa fa-google"/></li>
-          <li><span class="ct-droppable-source fa fa-android"/></li>
-          <li><span class="ct-droppable-source fa fa-amazon"/></li>
-          <li><span class="ct-droppable-source fa fa-linux"/></li>
-        </ul>
-        <ul class="drag-target-block ct-droppable-target"></ul>
-      </div>
-    </dd>
-  </dl>
-
-  <dl>
-    <dt><h3>A-B 节点移走</h3></dt>
-    <dd>
-      <div class="drag-container" id="demo2">
-        <ul class="drag-source-block">
-          <li><span class="ct-droppable-source fa fa-qq"/></li>
-          <li><span class="ct-droppable-source fa fa-git"/></li>
-          <li><span class="ct-droppable-source fa fa-google"/></li>
-          <li><span class="ct-droppable-source fa fa-android"/></li>
-          <li><span class="ct-droppable-source fa fa-amazon"/></li>
-          <li><span class="ct-droppable-source fa fa-linux"/></li>
-        </ul>
-        <ul class="drag-target-block ct-droppable-target"></ul>
-      </div>
-    </dd>
-  </dl>
-
-  <dl>
-    <dt><h3>A-B B-A A!=A B!=B</h3></dt>
-    <dd>
-      <div class="drag-container" id="demo3">
-        <ul class="drag-source-block ct-droppable-target">
-          <li><span class="ct-droppable-source fa fa-qq"/></li>
-          <li><span class="ct-droppable-source fa fa-git"/></li>
-          <li><span class="ct-droppable-source fa fa-google"/></li>
-          <li><span class="ct-droppable-source fa fa-android"/></li>
-          <li><span class="ct-droppable-source fa fa-amazon"/></li>
-          <li><span class="ct-droppable-source fa fa-linux"/></li>
-        </ul>
-        <ul class="drag-target-block ct-droppable-target"></ul>
-      </div>
-    </dd>
-  </dl>
-
-  <dl>
-    <dt><h3>含有包含关系的用inclusionRelation属性控制</h3></dt>
-    <dd>
-      <div class="drag-container" id="demo4">
-        <ul class="drag-source-block ct-droppable-target">
-          <li><span class="ct-droppable-source fa fa-qq"/></li>
-          <li><span class="ct-droppable-source fa fa-git"/></li>
-          <li><span class="ct-droppable-source fa fa-google"/></li>
-          <li><span class="ct-droppable-source fa fa-android"/></li>
-          <li><span class="ct-droppable-source fa fa-amazon"/></li>
-          <li><span class="ct-droppable-source fa fa-linux"/></li>
-        </ul>
-        <ul class="drag-target-block ct-droppable-target">
-          <div class="ct-droppable-target"
-               style="margin: 5px;border: 1px solid #ccc;height: 100%;box-sizing: border-box;"></div>
-        </ul>
-      </div>
-    </dd>
-  </dl>
-
-  <dl>
-    <dt><h3>无限滚动</h3></dt>
-    <dd>
-      <div class="drag-container" id="demo5" style="height: 200px;">
-        <ul class="drag-source-block">
-          <li><span class="ct-droppable-source fa fa-qq"/></li>
-        </ul>
-        <ul class="drag-target-block ct-droppable-target" id="demo5Scroll" style="overflow: auto;">
-          <div style="width: 900px;height: 900px;position: relative" id="demo5Inner" class="ct-droppable-target"></div>
-        </ul>
-      </div>
-    </dd>
-  </dl>-->
 
   <!--方法-->
   <h2 id="tab-methods">方法</h2>
