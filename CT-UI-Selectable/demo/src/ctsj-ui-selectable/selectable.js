@@ -45,6 +45,10 @@ function initEvents() {
    * mousedown
    */
   self.el.addEventListener('mousedown', (ev) => {
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     self.isdown = true;
     console.log('mousedown');
 
@@ -96,6 +100,10 @@ function initEvents() {
    * mousemove
    */
   self.el.addEventListener('mousemove', (ev) => {
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     if (!self.isdown) return false;
 
     self.ismove = true;
@@ -265,6 +273,10 @@ function initEvents() {
    * mouseup
    */
   self.el.addEventListener('mouseup', () => {
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     self.ismove = false;
     self.isdown = false;
     self.baseX = null;
@@ -289,6 +301,10 @@ function initEvents() {
    * mouseup
    */
   document.body.addEventListener('mouseup', () => {
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     self.ismove = false;
     self.isdown = false;
     self.baseX = null;
@@ -319,6 +335,8 @@ class Selectable {
     this.el = el;
     this.config = Object.assign({}, config);
 
+    this.disable = false;
+
     this.isdown = false;
     // 是移动
     this.ismove = false;
@@ -330,6 +348,14 @@ class Selectable {
     this.excludeEls = [];
 
     initEvents.call(this);
+  }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.disable = disable;
   }
 }
 

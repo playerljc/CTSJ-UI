@@ -253,6 +253,8 @@ class Drag {
     this.el = el;
     this.config = Object.assign({}, config);
 
+    this.disable = false;
+
     this.onMousedown = this.onMousedown.bind(this);
     this.onMouseup = this.onMouseup.bind(this);
     this.onMousemove = this.onMousemove.bind(this);
@@ -277,6 +279,10 @@ class Drag {
    */
   onMousedown(e) {
     const self = this;
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     const sourceEl = getDragTarget(e.target);
     if (!sourceEl) return false;
 
@@ -308,6 +314,9 @@ class Drag {
    */
   onMouseup() {
     const self = this;
+    const { disable = false } = self;
+
+    if (disable) return false;
     mouseupDetail.call(self);
     reset.call(self);
   }
@@ -317,6 +326,9 @@ class Drag {
    */
   onMousemove(e) {
     const self = this;
+    const { disable = false } = self;
+
+    if (disable) return false;
     if (!self.isdown) {
       const sourceEl = getDragTarget(e.target);
       if (sourceEl) {
@@ -361,6 +373,14 @@ class Drag {
 
     self.sourceEl.style.left = `${left}px`;
     self.sourceEl.style.top = `${top}px`;
+  }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.disable = disable;
   }
 }
 

@@ -76,6 +76,10 @@ function initEvents() {
 
   // document.body mousemove
   self.el.addEventListener('mousemove', (ev) => {
+    const { disable = false } = self;
+
+    if (disable) return false;
+
     if (!self.isdown) return false;
 
     if (!self.ismove) {
@@ -106,9 +110,8 @@ function initEvents() {
 
       self.cloneEl.style.left = `${self.baseX + incrementX}px`;
       self.cloneEl.style.top = `${self.baseY + incrementY}px`;
-    }
-    // 是无限画布
-    else if (self.ismovecanput) {
+    } else if (self.ismovecanput) {
+      // 是无限画布
       const { boundaryDetection } = moveInTargetEls;
       const { /* condition, */rect/* , el */ } = boundaryDetection[0];
 
@@ -137,7 +140,7 @@ function initEvents() {
       };
 
       if (self.baseX + incrementX < rect.left ||
-           self.baseX + incrementX + self.cloneEl.offsetWidth > rect.right
+        self.baseX + incrementX + self.cloneEl.offsetWidth > rect.right
       ) {
         if (self.baseX + incrementX < rect.left) {
           self.cloneEl.style.left = `${rect.left}px`;
@@ -154,7 +157,7 @@ function initEvents() {
 
 
       if (self.baseY + incrementY < rect.top ||
-          self.baseY + incrementY + self.cloneEl.offsetHeight > rect.bottom
+        self.baseY + incrementY + self.cloneEl.offsetHeight > rect.bottom
       ) {
         if (self.baseY + incrementY < rect.top) {
           self.cloneEl.style.top = `${rect.top}px`;
@@ -241,6 +244,10 @@ function initDragSourceEvent() {
       }
 
       const handler = (ev) => {
+        const { disable = false } = self;
+
+        if (disable) return false;
+
         self.isdown = true;
         self.sourceEl = sourceEl;
         const rect = sourceEl.getBoundingClientRect();
@@ -321,6 +328,10 @@ function initDragSourceEvent() {
     // 进入 mouseenter
     sourceEl.addEventListener('mouseenter', (() => {
       const handler = () => {
+        const { disable = false } = self;
+
+        if (disable) return false;
+
         sourceEl.style.cursor = 'move';
         if (onSourceEnter) {
           onSourceEnter(sourceEl);
@@ -333,6 +344,9 @@ function initDragSourceEvent() {
     // 移出 mouseleave
     sourceEl.addEventListener('mouseleave', (() => {
       const handler = () => {
+        const { disable = false } = self;
+
+        if (disable) return false;
         sourceEl.style.cursor = 'default';
         if (onSourceLeave) {
           onSourceLeave(sourceEl);
@@ -431,7 +445,7 @@ function getMoveInTargetEls() {
       )
     ) {
       if (dragTargetExtendClasses) {
-        dragTargetExtendClasses.map((Class) => {
+        dragTargetExtendClasses.forEach((Class) => {
           if (Class) {
             targetEl.classList.remove(Class);
           }
@@ -458,7 +472,7 @@ function getMoveInTargetEls() {
         sectionResult.push(targetEl);
       }
     } else if (dragTargetExtendClasses) {
-      dragTargetExtendClasses.map((t) => {
+      dragTargetExtendClasses.forEach((t) => {
         if (t) {
           targetEl.classList.remove(t);
         }
@@ -554,7 +568,7 @@ function reset(targetEls) {
   if (targetEls && targetEls.length > 0) {
     for (let i = 0; i < targetEls.length; i++) {
       if (dragTargetExtendClasses) {
-        dragTargetExtendClasses.map((Class) => {
+        dragTargetExtendClasses.forEach((Class) => {
           if (Class) {
             targetEls[i].classList.remove(Class);
           }
@@ -709,7 +723,7 @@ class Droppable {
   constructor(el, config) {
     this.el = el;
     this.config = Object.assign({}, config);
-
+    this.disable = false;
     this.sourceEls = this.el.querySelectorAll(`.${selectorPrefix}source`);
     this.targetEls = this.el.querySelectorAll(`.${selectorPrefix}target`);
     this.isdown = false; // 是否按下了
@@ -742,6 +756,14 @@ class Droppable {
     this.sourceEls = this.el.querySelectorAll(`.${selectorPrefix}source`);
     this.targetEls = this.el.querySelectorAll(`.${selectorPrefix}target`);
     initDragSourceEvent.call(this);
+  }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.disable = disable;
   }
 }
 

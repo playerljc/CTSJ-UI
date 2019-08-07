@@ -50,6 +50,7 @@ class Resizeable {
   constructor(el, parent) {
     this.el = el;
     this.parent = parent;
+    this.disable = false;
     this.initVar();
     this.initEvents();
   }
@@ -96,6 +97,10 @@ class Resizeable {
      * el mousedown
      */
     this.el.addEventListener('mousedown', (e) => {
+      const { disable = false } = self;
+
+      if (disable) return false;
+
       if (!self.isCanResize) {
         // console.log('el down no');
         return false;
@@ -111,6 +116,10 @@ class Resizeable {
      * el mousemove
      */
     this.el.addEventListener('mousemove', (e) => {
+      const { disable = false } = self;
+
+      if (disable) return false;
+
       // console.log('555');
       if (self.parent.cur && self.parent.cur !== self) {
         // console.log('el-mousemove', self.id);
@@ -207,6 +216,14 @@ class Resizeable {
     // this.rect = this.el.getBoundingClientRect();
     this.direction = null;
   }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.disable = disable;
+  }
 }
 
 /**
@@ -222,6 +239,7 @@ class ResizeableGroup {
    */
   constructor(el) {
     this.el = el;
+    this.disable = false;
     this.rect = this.el.getBoundingClientRect();
     this.cur = null;
     this.initEvents();
@@ -233,10 +251,14 @@ class ResizeableGroup {
    */
   initEvents() {
     const self = this;
+
     /**
      * group mousemove
      */
     self.el.addEventListener('mousemove', (e) => {
+      const { disable = false } = self;
+
+      if (disable) return false;
       // console.log('body-mousemove', self.cur.id);
       // console.log('666');
       if (!(self.cur && self.cur.isCanResize && self.cur.isDown)) {
@@ -288,6 +310,9 @@ class ResizeableGroup {
      * group mouseup
      */
     self.el.addEventListener('mouseup', () => {
+      const { disable = false } = self;
+
+      if (disable) return false;
       if (!(self.cur && self.cur.isCanResize && self.cur.isDown)) {
         // console.log('抬起，没reset');
         return false;
@@ -324,6 +349,17 @@ class ResizeableGroup {
   refresh() {
     this.init();
   }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.disable = disable;
+    this.ins.forEach((t) => {
+      t.setDisable(disable);
+    });
+  }
 }
 
 /**
@@ -355,6 +391,16 @@ class ResizeableGroupManager {
    */
   refresh() {
     this.init();
+  }
+
+  /**
+   * setDisable
+   * @param {Boolean} - disable
+   */
+  setDisable(disable) {
+    this.resizeManagers.forEach((t) => {
+      t.setDisable(disable);
+    });
   }
 }
 
