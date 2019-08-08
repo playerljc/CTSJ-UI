@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="./ct-ui-split/split.css">
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #ct-split-h {
+      width: 100%;
+      height: 100%;
+    }
+
+    #ct-split-v {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ct-split-main {
+      background-color: red;
+    }
+
+    .ct-split-left,
+    .ct-split-right {
+      width: 20%;
+      box-sizing: border-box;
+    }
+
+    .ct-split-top,
+    .ct-split-bottom {
+      height: 20%;
+      box-sizing: border-box;
+    }
+
+    .ct-split-left {
+      border-right: 1px solid #ccc;
+      background-color: #007aff;
+    }
+
+    .ct-split-right {
+      border-left: 1px solid #ccc;
+      background-color: #9a6e3a;
+    }
+
+    .ct-split-top {
+      border-bottom: 1px solid #ccc;
+      background-color: #007aff;
+    }
+
+    .ct-split-bottom {
+      border-top: 1px solid #ccc;
+      background-color: #9a6e3a;
+    }
+  </style>
+  <script type="module" src="./index.js"></script>
+</head>
+<body>
+
+<div class="ct-split" id="ct-split-h">
+  <div class="ct-split-main">
+    <div class="ct-split" id="ct-split-v">
+      <div class="ct-split-main"></div>
+      <!--<div class="ct-split-top"></div>-->
+      <!--<div class="ct-split-bottom"></div>-->
+      <div class="ct-split-left" style="display: flex;">
+        <div class="ct-split" id="leftSplit" style="width: 100%;">
+          <div class="ct-split-main"></div>
+          <div class="ct-split-top"></div>
+          <div class="ct-split-bottom"></div>
+        </div>
+      </div>
+      <div class="ct-split-right" style="display: flex;">
+        <div class="ct-split" id="rightSplit" style="width: 100%;">
+          <div class="ct-split-main"></div>
+          <div class="ct-split-left"></div>
+          <div class="ct-split-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="ct-split-left"></div>-->
+  <!--<div class="ct-split-right"></div>-->
+  <div class="ct-split-top"></div>
+  <div class="ct-split-bottom"></div>
+</div>
+
+</body>
+</html>

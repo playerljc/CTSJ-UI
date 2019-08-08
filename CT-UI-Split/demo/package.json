@@ -1,0 +1,39 @@
+{
+  "name": "ctsj-ui-split-demo",
+  "version": "1.0.0",
+  "description": "ctsj-ui-split的Demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "startapp": "ctbuild --type startapp",
+    "buildapp": "ctbuild --type buildapp",
+    "link":"npm link @ctsj/build && npm link @ctsj/ui-demo-util && npm link @ctmobile/ui-util && npm link @ctsj/ui-split"
+  },
+  "author": "playerljc <playerljc@163.com>",
+  "license": "MIT",
+  "keywords": [
+    "CTSJ-UI",
+    "CTSJ",
+    "CTSJ-UI-Split",
+    "pc",
+    "webapp",
+    "SPA",
+    "Hybrid",
+    "Cordova",
+    "Android",
+    "iOS",
+    "Material",
+    "playerljc",
+    "WebFramework"
+  ],
+  "devDependencies": {
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "normalize.less": "^1.0.0",
+    "font-awesome": "^4.7.0",
+    "@babel/runtime": "^7.5.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
