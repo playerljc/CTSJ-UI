@@ -56,7 +56,12 @@ ReactDOM.render((
           <div dangerouslySetInnerHTML={{
     __html:
     `
-
+    DragFactory.create(this.dom, {
+      mode: 'clone',
+      cloneClasses: ['cloneNode'],
+      showMap: true,
+      moveStep: 10,
+    });
     `,
   }}
           />

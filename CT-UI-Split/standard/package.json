@@ -1,0 +1,43 @@
+{
+  "name": "@ctsj/ui-split-sd",
+  "version": "1.0.0",
+  "description": "支持PC端的UI组件-Split",
+  "main": "lib/split.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "jsdoc src README.md -d doc -u doc/tutorials",
+    "buildpackage": "ctcopy ../src src && ctbuild --type buildpackage",
+    "link": "npm link @ctsj/build && npm link @ctmobile/ui-util"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playerljc/CTSJ-UI.git"
+  },
+  "keywords": [
+    "Split",
+    "CTSJ",
+    "CTSJ-UI",
+    "pc",
+    "webapp",
+    "SPA",
+    "Hybrid",
+    "Cordova",
+    "Android",
+    "iOS",
+    "Material",
+    "playerljc",
+    "WebFramework"
+  ],
+  "author": "playerljc <playerljc@163.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/playerljc/CTSJ-UI/issues"
+  },
+  "homepage": "https://github.com/playerljc/CTSJ-UI#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.2.0"
+  },
+  "devDependencies": {
+    "@ctmobile/ui-util": "^1.0.0"
+  }
+}

@@ -3,12 +3,12 @@
  el
  {
    direction: [horizontal(横) | vertical(竖)]
-   onCanMove: Function 可以进行拖动
-   onMove: Function  拖动中
-   onSuccess: Function 拖动结束
    step: 1 步进(没实现)
    minBlankWidth: Number 横向最小留白距离 默认30
    minBlankHeight: Number 纵向最小留白距离 默认30
+   onCanMove: Function 可以进行拖动
+   onMove: Function  拖动中
+   onSuccess: Function 拖动结束
  }
 
  布局:
@@ -32,39 +32,39 @@
 
  demo:
  * */
-// import { Dom6 } from '@ctmobile/ui-util';
+import { Dom6 } from '@ctmobile/ui-util';
 
-const Dom6 = {
-  getTopDom(target, selector) {
-    if (!target || !selector) return null;
-
-    if (target.className.indexOf(selector) !== -1) {
-      return target;
-    }
-
-    let parentDom = target;
-    while ((parentDom = parentDom.parentNode)) {
-      if (parentDom.className.indexOf(selector) !== -1) {
-        break;
-      } else if (parentDom === document.body) break;
-    }
-
-    if (parentDom) {
-      if (parentDom === document.body) {
-        return null;
-      } else {
-        return parentDom;
-      }
-    } else {
-      return null;
-    }
-  },
-  createElement(html) {
-    const dom = document.createElement('div');
-    dom.innerHTML = html;
-    return dom.firstElementChild;
-  },
-};
+// const Dom6 = {
+//   getTopDom(target, selector) {
+//     if (!target || !selector) return null;
+//
+//     if (target.className.indexOf(selector) !== -1) {
+//       return target;
+//     }
+//
+//     let parentDom = target;
+//     while ((parentDom = parentDom.parentNode)) {
+//       if (parentDom.className.indexOf(selector) !== -1) {
+//         break;
+//       } else if (parentDom === document.body) break;
+//     }
+//
+//     if (parentDom) {
+//       if (parentDom === document.body) {
+//         return null;
+//       } else {
+//         return parentDom;
+//       }
+//     } else {
+//       return null;
+//     }
+//   },
+//   createElement(html) {
+//     const dom = document.createElement('div');
+//     dom.innerHTML = html;
+//     return dom.firstElementChild;
+//   },
+// };
 
 const selectorPrefix = 'ct-split';
 // 边缘的步进

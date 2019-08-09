@@ -1,93 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="./ct-ui-split/split.css">
-  <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-    }
-
-    #ct-split-h {
-      width: 100%;
-      height: 100%;
-    }
-
-    #ct-split-v {
-      width: 100%;
-      height: 100%;
-    }
-
-    .ct-split-main {
-      background-color: red;
-    }
-
-    .ct-split-left,
-    .ct-split-right {
-      width: 20%;
-      box-sizing: border-box;
-    }
-
-    .ct-split-top,
-    .ct-split-bottom {
-      height: 20%;
-      box-sizing: border-box;
-    }
-
-    .ct-split-left {
-      border-right: 1px solid #ccc;
-      background-color: #007aff;
-    }
-
-    .ct-split-right {
-      border-left: 1px solid #ccc;
-      background-color: #9a6e3a;
-    }
-
-    .ct-split-top {
-      border-bottom: 1px solid #ccc;
-      background-color: #007aff;
-    }
-
-    .ct-split-bottom {
-      border-top: 1px solid #ccc;
-      background-color: #9a6e3a;
-    }
-  </style>
-  <script type="module" src="./index.js"></script>
+<html>
+<head lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <title>ctsj-ui-split-demo</title>
 </head>
+
 <body>
 
-<div class="ct-split" id="ct-split-h">
-  <div class="ct-split-main">
-    <div class="ct-split" id="ct-split-v">
-      <div class="ct-split-main"></div>
-      <!--<div class="ct-split-top"></div>-->
-      <!--<div class="ct-split-bottom"></div>-->
-      <div class="ct-split-left" style="display: flex;">
-        <div class="ct-split" id="leftSplit" style="width: 100%;">
-          <div class="ct-split-main"></div>
-          <div class="ct-split-top"></div>
-          <div class="ct-split-bottom"></div>
-        </div>
-      </div>
-      <div class="ct-split-right" style="display: flex;">
-        <div class="ct-split" id="rightSplit" style="width: 100%;">
-          <div class="ct-split-main"></div>
-          <div class="ct-split-left"></div>
-          <div class="ct-split-right"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--<div class="ct-split-left"></div>-->
-  <!--<div class="ct-split-right"></div>-->
+<div class="ct-ui-doc">
+
+  <!-- Split -->
+
+  <!--菜单-->
+  <h1>Split</h1>
+  <ul>
+    <li>
+      <a href="#split-layout">基本布局</a>
+    </li>
+
+    <li>
+      <a href="#split-initial">初始化</a>
+    </li>
+
+    <li><a href="#split-demo">例子</a></li>
+  </ul>
+
+  <!--基本布局-->
+  <h2 id="split-layout">基本布局</h2>
+  <dl>
+    <dt>
+<pre>
+<code class="html">
+<div class="ct-split">
+  <div class="ct-split-main"></div>
   <div class="ct-split-top"></div>
   <div class="ct-split-bottom"></div>
+</div>
+<div class="ct-split">
+  <div class="ct-split-main"></div>
+  <div class="ct-split-left"></div>
+  <div class="ct-split-right"></div>
+</div>
+</code>
+</pre>
+    </dt>
+    <dd>
+      <ul>
+        <li>.ct-split        - 父容器</li>
+        <li>.ct-split-main   - 主区域</li>
+        <li>.ct-split-left   - 左侧区域</li>
+        <li>.ct-split-right  - 右侧区域</li>
+        <li>.ct-split-top    - 上方区域</li>
+        <li>.ct-split-bottom - 下方区域</li>
+      </ul>
+    </dd>
+  </dl>
+
+  <!--初始化-->
+  <h2 id="split-initial">初始化</h2>
+<pre>
+<code class="javascript">
+import SplitFactory from '@ctsj/ui-split/split';
+import '@ctsj/ui-split/split.less';
+
+SplitFactory.create(this.dom, {
+  direction: 'horizontal',
+});
+</code>
+</pre>
+
+  <table class="events-table" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>说明</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{HtmlElement} - el</td>
+      <td>父容器元素</td>
+    </tr>
+    <tr>
+      <td>{object} - config</td>
+      <td>
+        <ul>
+          <li>
+            <p>指示器配置 {object} - config</p>
+            <div class="method-wrap">
+              <p>direction {String} - [horizontal(横) | vertical(竖)]</p>
+              <p>
+                direction为horizontal只有ct-split-left和ct-split-right</br>
+                direction为vertical只有ct-split-top和ct-split-top
+              </p>
+            </div>
+            <div class="method-wrap">
+              <p>minBlankWidth {Number} - 横向最小留白距离 - 默认30</p>
+            </div>
+            <div class="method-wrap">
+              <p>minBlankHeight {Number} - 纵向最小留白距离 - 默认30</p>
+            </div>
+            <div class="method-wrap">
+              <p>onCanMove {Function} - 可以进行拖动</p>
+            </div>
+            <div class="method-wrap">
+              <p>onMove {Function} - 拖动中</p>
+            </div>
+            <div class="method-wrap">
+              <p>onSuccess {Function} - 拖动结束</p>
+            </div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!--例子-->
+  <h2 id="split-demo">例子</h2>
+
+  <div id="demo1"></div>
+  <div id="demo2"></div>
+  <div id="demo3"></div>
+  <div id="demo4"></div>
+  <div id="demo5"></div>
+
 </div>
 
 </body>
