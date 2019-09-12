@@ -96,9 +96,9 @@ ReactDOM.render((
       <Demo1 />
     </div>
     <div>
-<pre>
-<code className="javascript">
-  <div dangerouslySetInnerHTML={{
+      <pre>
+        <code className="javascript">
+          <div dangerouslySetInnerHTML={{
     __html:
     `
         const droppable1 = DroppableFactory.create(this.dom, {
@@ -144,9 +144,9 @@ ReactDOM.render((
       });
     `,
   }}
-  />
-</code>
-</pre>
+          />
+        </code>
+      </pre>
     </div>
   </Example>
 ), dom1El);
@@ -237,9 +237,9 @@ ReactDOM.render((
       <Demo2 />
     </div>
     <div>
-<pre>
-<code className="javascript">
-  <div dangerouslySetInnerHTML={{
+      <pre>
+        <code className="javascript">
+          <div dangerouslySetInnerHTML={{
     __html: `
       const droppable2 = DroppableFactory.create(this.dom, {
         // 可以放置
@@ -285,9 +285,9 @@ ReactDOM.render((
       });
     `,
   }}
-  />
-</code>
-</pre>
+          />
+        </code>
+      </pre>
     </div>
   </Example>
 ), dom2El);
@@ -384,9 +384,9 @@ ReactDOM.render((
       <Demo3 />
     </div>
     <div>
-<pre>
-<code className="javascript">
-  <div dangerouslySetInnerHTML={{
+      <pre>
+        <code className="javascript">
+          <div dangerouslySetInnerHTML={{
     __html: `
         const droppable3 = DroppableFactory.create(this.dom, {
           // 可以放置,已经在ct-droppable-target中的ct-droppable-source不能拖放
@@ -438,9 +438,9 @@ ReactDOM.render((
         });
     `,
   }}
-  />
-</code>
-</pre>
+          />
+        </code>
+      </pre>
     </div>
   </Example>
 ), dom3El);
@@ -536,9 +536,9 @@ ReactDOM.render((
       <Demo4 />
     </div>
     <div>
-<pre>
-<code className="javascript">
-  <div dangerouslySetInnerHTML={{
+      <pre>
+        <code className="javascript">
+          <div dangerouslySetInnerHTML={{
     __html: `
       const droppable4 = DroppableFactory.create(this.dom, {
         // 可以放置,已经在ct-droppable-target中的ct-droppable-source不能拖放
@@ -584,9 +584,9 @@ ReactDOM.render((
       });
     `,
   }}
-  />
-</code>
-</pre>
+          />
+        </code>
+      </pre>
     </div>
   </Example>
 ), dom4El);
@@ -700,9 +700,9 @@ ReactDOM.render((
       <Demo5 />
     </div>
     <div>
-<pre>
-<code className="javascript">
-  <div dangerouslySetInnerHTML={{
+      <pre>
+        <code className="javascript">
+          <div dangerouslySetInnerHTML={{
     __html: `
       const droppable5 = DroppableFactory.create(this.dom, {
         /**
@@ -761,9 +761,9 @@ ReactDOM.render((
       });
     `,
   }}
-  />
-</code>
-</pre>
+          />
+        </code>
+      </pre>
     </div>
   </Example>
 ), dom5El);

@@ -300,23 +300,23 @@ function initEvents() {
   /**
    * mouseup
    */
-  document.body.addEventListener('mouseup', () => {
-    const { disable = false } = self;
-
-    if (disable) return false;
-
-    self.ismove = false;
-    self.isdown = false;
-    self.baseX = null;
-    self.baseY = null;
-    if (self.cloneEl) {
-      self.cloneEl.parentElement.removeChild(self.cloneEl);
-      self.cloneEl = null;
-    }
-    if (self.config.upInclude) {
-      self.config.upInclude([].concat(self.includeEls));
-    }
-  });
+  // document.body.addEventListener('mouseup', () => {
+  //   const { disable = false } = self;
+  //
+  //   if (disable) return false;
+  //
+  //   self.ismove = false;
+  //   self.isdown = false;
+  //   self.baseX = null;
+  //   self.baseY = null;
+  //   if (self.cloneEl) {
+  //     self.cloneEl.parentElement.removeChild(self.cloneEl);
+  //     self.cloneEl = null;
+  //   }
+  //   if (self.config.upInclude) {
+  //     self.config.upInclude([].concat(self.includeEls));
+  //   }
+  // });
 }
 
 /**

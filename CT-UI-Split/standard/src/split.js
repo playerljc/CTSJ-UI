@@ -261,6 +261,7 @@ function createSeparator() {
  * @access private
  */
 function reset() {
+  document.body.style.cursor = 'default';
   const { minBlankWidth = minWidth, minBlankHeight = minHeight } = this.config;
   // 连续点击时候的处理
   if (this.isDown && this.isCanResize && !this.ismove) {

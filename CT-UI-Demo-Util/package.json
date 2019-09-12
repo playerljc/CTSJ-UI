@@ -4,7 +4,7 @@
   "description": "ct中demo的工具类",
   "main": "lib/index.js",
   "scripts": {
-    "buildpackage": "ctbuild --type buildpackage",
+    "buildpackage": "ctbuild buildpackage",
     "link": "npm link @ctsj/build"
   },
   "repository": {

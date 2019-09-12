@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import DemoUtil from '@ctsj/ui-demo-util';
 import Example from '@ctsj/ui-demo-util/lib/example';
-// import SelectableFactory from '@ctsj/ui-selectable/selectable';
-import SelectableFactory from '@ctsj/ui-selectable';
-// import '@ctsj/ui-selectable/selectable.less';
+
+import SelectableFactory from '@ctsj/ui-selectable/selectable';
+import '@ctsj/ui-selectable/selectable.less';
+
+// import SelectableFactory from '@ctsj/ui-selectable';
+
 import 'normalize.less';
 import './index.less';
 
