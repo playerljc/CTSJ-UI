@@ -1,11 +1,11 @@
 {
-  "name": "@ctsj/ui",
+  "name": "@ctsj/ui-demo",
   "version": "1.0.0",
-  "description": "支持PC的UI组件和通用组件库",
-  "main": "lib/index.js",
+  "description": "支持PC的UI组件和通用组件库的demo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "buildpackage": "ctbuild buildpackagets",
+    "startapp": "ctbuild startapp",
+    "buildapp": "ctbuild buildapp",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
     "lint-staged": "lint-staged",
     "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
