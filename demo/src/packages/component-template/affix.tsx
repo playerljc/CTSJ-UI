@@ -1,4 +1,4 @@
-/* 组件实现 */
+/* 组件js实现 */
 
 import React from 'react';
 import { IAffixProps, IAffixState } from './types';
