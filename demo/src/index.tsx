@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Router from './router';
+
+import './index.less';
+
 ReactDOM.render(
-  <div>Test</div>,
+  Router,
   document.getElementById('app')
 );
