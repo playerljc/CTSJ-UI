@@ -14,6 +14,8 @@ export interface IAffixProps {
   target?: () => Window | HTMLElement;
   // 固定状态改变时触发的回调函数
   onChange?: (value: number) => void;
+  style?: React.CSSProperties;
+  className?: string;
   children: React.ReactElement;
 }
 

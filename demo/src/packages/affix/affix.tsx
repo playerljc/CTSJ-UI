@@ -16,9 +16,11 @@ const ClassName = `${Constant.PREFIX}${Name}`;
  */
 class Affix extends React.Component<IAffixProps, IAffixState> {
   targetEl: Window | HTMLElement = window;
+  el: HTMLDivElement | Window = window;
   state: IAffixState = {
     isFixed: false,
   };
+  offsetTop: number = 0;
 
   constructor(props) {
     super(props);
@@ -31,6 +33,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
       this.targetEl = target();
     }
 
+    this.offsetTop = (this.el as HTMLDivElement).offsetTop;
     this.targetEl.addEventListener('scroll', this.onScroll);
   }
 
@@ -49,23 +52,34 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
     const { scrollTop } = el;
 
-    const { offsetTop = 0, offsetBottom, onChange } = this.props;
+    const { offsetTop: offsetProp = 0, offsetBottom, onChange } = this.props;
+    const { offsetTop } = this;
 
-    if (scrollTop === offsetTop) {
+    if (scrollTop >= offsetTop + offsetProp) {
       this.setState({
-        isFixed: false,
+        isFixed: true,
       });
     } else {
       this.setState({
-        isFixed: true,
+        isFixed: false,
       });
     }
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className = '', style = {} } = this.props;
     const { isFixed } = this.state;
-    return <div className={classNames(ClassName, isFixed ? 'Fixed' : '')}>{children}</div>;
+    return (
+      <div
+        ref={(el: HTMLDivElement) => {
+          this.el = el;
+        }}
+        style={style}
+        className={classNames(ClassName, isFixed ? 'Fixed' : '', ...className.split(' '))}
+      >
+        {children}
+      </div>
+    );
   }
 }
 

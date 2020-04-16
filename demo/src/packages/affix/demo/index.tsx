@@ -21,10 +21,12 @@ class Demo extends React.PureComponent {
     | null
     | undefined {
     return (
-      <div>
-        <Affix>
+      <div className="AffixDemo">
+        <div style={{height:300}}>222</div>
+        <Affix offsetTop={0}>
           <div>111</div>
         </Affix>
+        <div style={{height:6600}}>333</div>
       </div>
     );
   }
