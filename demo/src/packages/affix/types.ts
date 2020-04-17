@@ -25,5 +25,6 @@ export interface IAffixProps {
  * @classdesc IAffixState
  */
 export interface IAffixState {
-  isFixed: boolean;
+  isTopFixed?: boolean;
+  isBottomFixed?: boolean;
 }

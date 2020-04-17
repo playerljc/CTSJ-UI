@@ -1,10 +1,11 @@
-import {
-  browserConfig,
-} from '@ctsj/router';
+import { browserConfig } from '@ctsj/router';
 
+// @ts-ignore
 import App from '@/app';
+// @ts-ignore
 import Affix from '@/packages/affix/demo';
 
+// @ts-ignore
 const config = [
   {
     path: '/',

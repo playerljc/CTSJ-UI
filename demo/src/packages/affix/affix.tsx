@@ -15,12 +15,17 @@ const ClassName = `${Constant.PREFIX}${Name}`;
  * @classdesc Affix
  */
 class Affix extends React.Component<IAffixProps, IAffixState> {
-  targetEl: Window | HTMLElement = window;
-  el: HTMLDivElement | Window = window;
+  // 滚动元素
+  scrollEl: Window | HTMLElement = window;
+  // self元素
+  el: HTMLElement = window.document.body;
+  // self距离容器的top
+  selfTop: number = 0;
+  // state
   state: IAffixState = {
-    isFixed: false,
+    isTopFixed: false,
+    isBottomFixed: false,
   };
-  offsetTop: number = 0;
 
   constructor(props) {
     super(props);
@@ -28,54 +33,98 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
   }
 
   componentDidMount(): void {
-    const { target } = this.props;
+    const { target = null } = this.props;
     if (target) {
-      this.targetEl = target();
+      this.scrollEl = target();
     }
 
-    this.offsetTop = (this.el as HTMLDivElement).offsetTop;
-    this.targetEl.addEventListener('scroll', this.onScroll);
+    this.selfTop = this.el.offsetTop;
+    this.scrollEl.addEventListener('scroll', this.onScroll);
   }
 
   componentWillUnmount(): void {
-    this.targetEl.removeEventListener('scroll', this.onScroll);
+    this.scrollEl.removeEventListener('scroll', this.onScroll);
   }
 
-  onScroll(e: Event) {
+  getScrollEl(el: HTMLElement | Document | EventTarget | null): HTMLElement {
+    let scrollEl;
+    if (el instanceof Document) {
+      scrollEl = el.documentElement;
+    } else if(el instanceof  Window){
+      scrollEl = el.document.documentElement;
+    } else {
+      scrollEl = el;
+    }
+
+    return scrollEl;
+  }
+
+  onScroll(e: Event): void {
     const target: EventTarget | null = e.target;
-    let el;
-    if (target instanceof Document) {
-      el = target.documentElement;
-    } else {
-      el = target;
-    }
+    const scrollEl = this.getScrollEl(target);
 
-    const { scrollTop } = el;
+    const { scrollTop } = scrollEl;
 
-    const { offsetTop: offsetProp = 0, offsetBottom, onChange } = this.props;
-    const { offsetTop } = this;
+    if ('offsetTop' in this.props) {
+      // top 元素位置 - top 最大值是元素位置       最小值是0 超出最大值就是0
+      const { offsetTop = 0 } = this.props;
 
-    if (scrollTop >= offsetTop + offsetProp) {
-      this.setState({
-        isFixed: true,
-      });
-    } else {
-      this.setState({
-        isFixed: false,
-      });
+      const top = offsetTop > this.selfTop ? 0 : this.selfTop - offsetTop;
+
+      if(top < 0) {
+        this.setState({
+          isTopFixed: false,
+        });
+      } else {
+        if (scrollTop >= top) {
+          this.setState({
+            isTopFixed: true,
+          });
+        } else {
+          this.setState({
+            isTopFixed: false,
+          });
+        }
+      }
+    } else if ('offsetBottom' in this.props) {
+      // bottom 容器高度 - bottom 最大值是容器高度 最小值是0 超出最大值就是0
+      const { offsetBottom = 0 } = this.props;
+
+      const scrollContainerHeight = this.getScrollEl(this.scrollEl).offsetHeight;
+      const top = this.selfTop - scrollContainerHeight - (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
+
+      if(top < 0) {
+        this.setState({
+          isBottomFixed: false,
+        });
+      } else {
+        if (scrollTop >= top) {
+          this.setState({
+            isBottomFixed: true,
+          });
+        } else {
+          this.setState({
+            isBottomFixed: false,
+          });
+        }
+      }
     }
   }
 
-  render() {
-    const { children, className = '', style = {} } = this.props;
-    const { isFixed } = this.state;
+  render(): React.ReactElement {
+    const { children, className = '', style = {}, offsetTop = 0, offsetBottom = 0 } = this.props;
+    const { isTopFixed, isBottomFixed } = this.state;
+
     return (
       <div
         ref={(el: HTMLDivElement) => {
           this.el = el;
         }}
-        style={style}
-        className={classNames(ClassName, isFixed ? 'Fixed' : '', ...className.split(' '))}
+        style={Object.assign(style, {
+          top: isTopFixed ? `${offsetTop}px` : 'auto',
+          bottom: isBottomFixed ? `${offsetBottom}px` : 'auto',
+        })}
+        className={classNames(ClassName, (isTopFixed || isBottomFixed) ? 'Fixed' : '', ...className.split(' '))}
       >
         {children}
       </div>
