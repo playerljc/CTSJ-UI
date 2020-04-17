@@ -48,6 +48,10 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     this.scrollEl.removeEventListener('scroll', this.onScroll);
   }
 
+  /**
+   * getScrollEl
+   * @param el
+   */
   getScrollEl(el: HTMLElement | Document | EventTarget | null): HTMLElement {
     let scrollEl;
     if (el instanceof Document) {
@@ -61,6 +65,10 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     return scrollEl;
   }
 
+  /**
+   * onScroll
+   * @param e
+   */
   onScroll(e: Event): void {
     const target: EventTarget | null = e.target;
     const scrollEl = this.getScrollEl(target);
@@ -110,7 +118,11 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     }
   }
 
-  getTop() {
+  /**
+   * getTop
+   * @return number
+   */
+  getTop(): number {
     const { offsetTop = 0 } = this.props;
     if(this.scrollEl instanceof Window) {
       return offsetTop;
@@ -120,7 +132,11 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     }
   }
 
-  getBottom() {
+  /**
+   * getBottom
+   * @return number
+   */
+  getBottom(): number {
     const { offsetBottom = 0 } = this.props;
     if(this.scrollEl instanceof Window) {
       return offsetBottom;

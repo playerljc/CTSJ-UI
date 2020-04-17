@@ -5,7 +5,4 @@ import Router from './router';
 
 import './index.less';
 
-ReactDOM.render(
-  Router,
-  document.getElementById('app')
-);
+ReactDOM.render(Router, document.getElementById('app'));
