@@ -73,8 +73,6 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
       const top = offsetTop > this.selfTop ? 0 : this.selfTop - offsetTop;
 
-      console.log(scrollTop, this.selfTop, top);
-
       if (scrollTop >= top) {
         this.setState({
           isTopFixed: true,
@@ -93,8 +91,6 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         this.selfTop -
         scrollContainerHeight -
         (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
-
-      console.log(scrollTop, this.selfTop, top);
 
       if (top < 0) {
         this.setState({
@@ -129,8 +125,8 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     if(this.scrollEl instanceof Window) {
       return offsetBottom;
     } else {
-      const {bottom} = this.scrollEl.getBoundingClientRect();
-      return bottom - offsetBottom;
+      const bottom = window.document.documentElement.offsetHeight - this.scrollEl.getBoundingClientRect().bottom;
+      return bottom + offsetBottom;
     }
   }
 
