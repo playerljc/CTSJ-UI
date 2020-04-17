@@ -10,6 +10,7 @@ import './index.less';
  * @classdesc Demo
  */
 class Demo extends React.PureComponent {
+  el: HTMLDivElement | null = null;
   render():
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
     | string
@@ -21,12 +22,14 @@ class Demo extends React.PureComponent {
     | null
     | undefined {
     return (
-      <div className="AffixDemo">
-        <div style={{height:1500}}>222</div>
-        <Affix offsetBottom={50}>
+      <div className="AffixDemo" ref={(el) => {
+        this.el = el;
+      }}>
+        <div style={{ height: 1500 }}>222</div>
+        <Affix offsetTop={50} target={() => this.el || window}>
           <div>111</div>
         </Affix>
-        <div style={{height:1500}}>333</div>
+        <div style={{ height: 1500 }}>333</div>
       </div>
     );
   }

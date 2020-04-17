@@ -35,11 +35,13 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
   componentDidMount(): void {
     const { target = null } = this.props;
     if (target) {
-      this.scrollEl = target();
+      window.setTimeout(() => {
+        this.scrollEl = target();
+        this.selfTop = this.el.offsetTop;
+        this.scrollEl.removeEventListener('scroll', this.onScroll);
+        this.scrollEl.addEventListener('scroll', this.onScroll);
+      });
     }
-
-    this.selfTop = this.el.offsetTop;
-    this.scrollEl.addEventListener('scroll', this.onScroll);
   }
 
   componentWillUnmount(): void {
@@ -50,7 +52,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     let scrollEl;
     if (el instanceof Document) {
       scrollEl = el.documentElement;
-    } else if(el instanceof  Window){
+    } else if (el instanceof Window) {
       scrollEl = el.document.documentElement;
     } else {
       scrollEl = el;
@@ -71,29 +73,30 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
       const top = offsetTop > this.selfTop ? 0 : this.selfTop - offsetTop;
 
-      if(top < 0) {
+      console.log(scrollTop, this.selfTop, top);
+
+      if (scrollTop >= top) {
+        this.setState({
+          isTopFixed: true,
+        });
+      } else {
         this.setState({
           isTopFixed: false,
         });
-      } else {
-        if (scrollTop >= top) {
-          this.setState({
-            isTopFixed: true,
-          });
-        } else {
-          this.setState({
-            isTopFixed: false,
-          });
-        }
       }
     } else if ('offsetBottom' in this.props) {
       // bottom 容器高度 - bottom 最大值是容器高度 最小值是0 超出最大值就是0
       const { offsetBottom = 0 } = this.props;
 
       const scrollContainerHeight = this.getScrollEl(this.scrollEl).offsetHeight;
-      const top = this.selfTop - scrollContainerHeight - (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
+      const top =
+        this.selfTop -
+        scrollContainerHeight -
+        (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
 
-      if(top < 0) {
+      console.log(scrollTop, this.selfTop, top);
+
+      if (top < 0) {
         this.setState({
           isBottomFixed: false,
         });
@@ -111,8 +114,28 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     }
   }
 
+  getTop() {
+    const { offsetTop = 0 } = this.props;
+    if(this.scrollEl instanceof Window) {
+      return offsetTop;
+    } else {
+      const {top} = this.scrollEl.getBoundingClientRect();
+      return top + offsetTop;
+    }
+  }
+
+  getBottom() {
+    const { offsetBottom = 0 } = this.props;
+    if(this.scrollEl instanceof Window) {
+      return offsetBottom;
+    } else {
+      const {bottom} = this.scrollEl.getBoundingClientRect();
+      return bottom - offsetBottom;
+    }
+  }
+
   render(): React.ReactElement {
-    const { children, className = '', style = {}, offsetTop = 0, offsetBottom = 0 } = this.props;
+    const { children, className = '', style = {} } = this.props;
     const { isTopFixed, isBottomFixed } = this.state;
 
     return (
@@ -121,10 +144,14 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
           this.el = el;
         }}
         style={Object.assign(style, {
-          top: isTopFixed ? `${offsetTop}px` : 'auto',
-          bottom: isBottomFixed ? `${offsetBottom}px` : 'auto',
+          top: isTopFixed ? `${this.getTop()}px` : 'auto',
+          bottom: isBottomFixed ? `${this.getBottom()}px` : 'auto',
         })}
-        className={classNames(ClassName, (isTopFixed || isBottomFixed) ? 'Fixed' : '', ...className.split(' '))}
+        className={classNames(
+          ClassName,
+          isTopFixed || isBottomFixed ? 'Fixed' : '',
+          ...className.split(' '),
+        )}
       >
         {children}
       </div>
