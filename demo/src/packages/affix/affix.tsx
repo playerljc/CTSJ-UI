@@ -3,7 +3,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { IAffixProps, IAffixState } from './types';
+import { IAffixProps, IAffixState, targetType } from './types';
 import Constant from '../constant';
 
 const Name = 'Affix';
@@ -33,7 +33,31 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
   }
 
   componentDidMount(): void {
-    const { target = null } = this.props;
+    const { target } = this.props;
+    this.setTarget(target as targetType);
+  }
+
+  componentWillReceiveProps(nextProps: Readonly<IAffixProps>, nextContext: any): void {
+    this.setState(
+      {
+        isTopFixed: false,
+        isBottomFixed: false,
+      },
+      () => {
+        this.setTarget(nextProps.target as targetType);
+      },
+    );
+  }
+
+  componentWillUnmount(): void {
+    this.scrollEl.removeEventListener('scroll', this.onScroll);
+  }
+
+  /**
+   * setTarget - 设置target
+   */
+  setTarget(target: targetType): void {
+    // 设置target
     if (target) {
       window.setTimeout(() => {
         this.scrollEl = target();
@@ -42,10 +66,6 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         this.scrollEl.addEventListener('scroll', this.onScroll);
       });
     }
-  }
-
-  componentWillUnmount(): void {
-    this.scrollEl.removeEventListener('scroll', this.onScroll);
   }
 
   /**
@@ -77,22 +97,31 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
     if ('offsetTop' in this.props) {
       // top 元素位置 - top 最大值是元素位置       最小值是0 超出最大值就是0
-      const { offsetTop = 0 } = this.props;
+      const { offsetTop = 0, onChange } = this.props;
 
       const top = offsetTop > this.selfTop ? 0 : this.selfTop - offsetTop;
 
+      let isTopFixed: boolean = false;
+
       if (scrollTop >= top) {
-        this.setState({
-          isTopFixed: true,
-        });
+        isTopFixed = true;
       } else {
-        this.setState({
-          isTopFixed: false,
-        });
+        isTopFixed = false;
       }
+
+      this.setState(
+        {
+          isTopFixed,
+        },
+        () => {
+          if (onChange) {
+            onChange(scrollTop);
+          }
+        },
+      );
     } else if ('offsetBottom' in this.props) {
       // bottom 容器高度 - bottom 最大值是容器高度 最小值是0 超出最大值就是0
-      const { offsetBottom = 0 } = this.props;
+      const { offsetBottom = 0, onChange } = this.props;
 
       const scrollContainerHeight = this.getScrollEl(this.scrollEl).offsetHeight;
       const top =
@@ -100,21 +129,28 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         scrollContainerHeight -
         (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
 
+      let isBottomFixed: boolean = false;
+
       if (top < 0) {
-        this.setState({
-          isBottomFixed: false,
-        });
+        isBottomFixed = false;
       } else {
         if (scrollTop >= top) {
-          this.setState({
-            isBottomFixed: true,
-          });
+          isBottomFixed = true;
         } else {
-          this.setState({
-            isBottomFixed: false,
-          });
+          isBottomFixed = false;
         }
       }
+
+      this.setState(
+        {
+          isBottomFixed,
+        },
+        () => {
+          if (onChange) {
+            onChange(scrollTop);
+          }
+        },
+      );
     }
   }
 
@@ -124,10 +160,10 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
    */
   getTop(): number {
     const { offsetTop = 0 } = this.props;
-    if(this.scrollEl instanceof Window) {
+    if (this.scrollEl instanceof Window) {
       return offsetTop;
     } else {
-      const {top} = this.scrollEl.getBoundingClientRect();
+      const { top } = this.scrollEl.getBoundingClientRect();
       return top + offsetTop;
     }
   }
@@ -138,10 +174,11 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
    */
   getBottom(): number {
     const { offsetBottom = 0 } = this.props;
-    if(this.scrollEl instanceof Window) {
+    if (this.scrollEl instanceof Window) {
       return offsetBottom;
     } else {
-      const bottom = window.document.documentElement.offsetHeight - this.scrollEl.getBoundingClientRect().bottom;
+      const bottom =
+        window.document.documentElement.offsetHeight - this.scrollEl.getBoundingClientRect().bottom;
       return bottom + offsetBottom;
     }
   }
