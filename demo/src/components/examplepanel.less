@@ -1,0 +1,74 @@
+@import '../vars';
+
+.ExamplePanel {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 16px;
+  border: 1px solid @common-border-color;
+  border-radius: 2px;
+  transition: all 0.2s;
+
+  > .ExamplePanel-Demo {
+    padding: 42px 24px 50px;
+    color: rgba(0, 0, 0, 0.85);
+    background-color: #fff;
+    border-bottom: 1px solid @common-border-color;
+  }
+
+  > .ExamplePanel-Mate {
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 1px dashed @common-border-color;
+    border-radius: 0;
+    transition: background-color 0.4s;
+
+    > .ExamplePanel-Mate-Title {
+      position: absolute;
+      top: -14px;
+      margin-left: 16px;
+      padding: 1px 8px;
+      color: #777;
+      background: #fff;
+      border-radius: 2px 2px 0 0;
+      transition: background-color 0.4s;
+    }
+
+    > .ExamplePanel-Mate-Description {
+      padding: 18px 24px 12px;
+    }
+
+    > .ExamplePanel-Mate-Actions {
+      padding-top: 12px;
+      text-align: center;
+      border-top: 1px dashed @common-border-color;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+  }
+
+  > .ExamplePanel-Highlight {
+    > pre {
+      margin: 0;
+      padding: 0;
+      > .hljs {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        background-color: #fff;
+        .hljs-keyword {
+          color: @common-code-primary-color;
+        }
+
+        .hljs-string {
+          color: @common-code-string-color;
+        }
+
+        .hljs-function {
+          color: @common-code-function-color;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+@import '../vars';
+
+@header-height: 64px;
+@footer-height: 64px;
+
+.Demo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+
+  > .Demo-Header {
+    display: flex;
+    flex-shrink: 0;
+    height: @header-height;
+  }
+
+  > .Demo-Footer {
+    display: flex;
+    height: @footer-height;
+  }
+
+  > .Demo-Body {
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+
+    > .Demo-Nav {
+      flex-shrink: 0;
+      width: 16.66666667%;
+    }
+
+    > .Demo-Main {
+      position: relative;
+      flex-grow: 1;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: 500px;
+      padding: 0 170px 32px 64px;
+      background: #fff;
+
+      &.markdown {
+        color: rgba(0, 0, 0, 0.85);
+        font-size: 14px;
+        line-height: 2;
+
+        h1 {
+          margin-top: 8px;
+          margin-bottom: 20px;
+          color: rgba(0, 0, 0, 0.85);
+          font-weight: 500;
+          font-size: 30px;
+          font-family: Avenir, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue,
+            Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol,
+            noto color emoji;
+          line-height: 38px;
+
+          > .subtitle {
+            margin-left: 12px;
+          }
+        }
+
+        h2 {
+          margin: 1.6em 0 0.6em;
+          color: rgba(0, 0, 0, 0.85);
+          font-weight: 500;
+          font-size: 24px;
+          font-family: Avenir, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue,
+            Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol,
+            noto color emoji;
+          line-height: 32px;
+        }
+
+        //&.api-container {
+        table {
+          width: 100%;
+          min-width: 720px;
+          margin: 2em 0;
+          font-size: 13px;
+          font-family: sfmono-regular, Consolas, liberation mono, Menlo, Courier, monospace;
+          line-height: 1.5715;
+          empty-cells: show;
+          border: 1px solid @common-border-color;
+          border-collapse: collapse;
+          border-spacing: 0;
+
+          th {
+            padding: 14px 12px 12px 12px;
+            color: #5c6b77;
+            font-weight: 500;
+            white-space: nowrap;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.02);
+            border-color: @common-border-color;
+            border-width: 0 0 2px;
+          }
+
+          td {
+            padding: 12px;
+            color: #595959;
+            text-align: left;
+            border: 1px solid @common-border-color;
+            &:first-child {
+              width: 20%;
+              font-weight: 600;
+            }
+          }
+        }
+        //}
+      }
+    }
+  }
+}

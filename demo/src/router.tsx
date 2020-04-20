@@ -1,7 +1,7 @@
 import { browserConfig } from '@ctsj/router';
 
 // @ts-ignore
-import App from '@/app';
+import App from '@/components/app';
 // @ts-ignore
 import Affix from '@/packages/affix/demo';
 

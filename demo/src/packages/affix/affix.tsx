@@ -58,14 +58,29 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
    */
   setTarget(target: targetType): void {
     // 设置target
-    if (target) {
-      window.setTimeout(() => {
+    window.setTimeout(() => {
+      debugger;
+      if (target) {
         this.scrollEl = target();
-        this.selfTop = this.el.offsetTop;
-        this.scrollEl.removeEventListener('scroll', this.onScroll);
-        this.scrollEl.addEventListener('scroll', this.onScroll);
-      });
+      }
+      this.selfTop = this.getOffsetTop();
+      this.scrollEl.removeEventListener('scroll', this.onScroll);
+      this.scrollEl.addEventListener('scroll', this.onScroll);
+    });
+  }
+
+  /**
+   * getOffsetTop
+   * @return number
+   */
+  getOffsetTop(): number {
+    let current: Element | HTMLElement | null = this.el;
+    let top: number = 0;
+    while (current !== null && current !== this.scrollEl) {
+      top = top + (current as HTMLElement).offsetTop;
+      current = (current as HTMLElement).offsetParent;
     }
+    return top;
   }
 
   /**
@@ -103,6 +118,8 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
       let isTopFixed: boolean = false;
 
+      console.log(this.selfTop, scrollTop, top);
+
       if (scrollTop >= top) {
         isTopFixed = true;
       } else {
@@ -123,13 +140,15 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
       // bottom 容器高度 - bottom 最大值是容器高度 最小值是0 超出最大值就是0
       const { offsetBottom = 0, onChange } = this.props;
 
-      const scrollContainerHeight = this.getScrollEl(this.scrollEl).offsetHeight;
+      const scrollContainerHeight = this.getScrollEl(this.scrollEl).clientHeight;
       const top =
         this.selfTop -
         scrollContainerHeight -
         (offsetBottom > scrollContainerHeight ? 0 : offsetBottom);
 
       let isBottomFixed: boolean = false;
+
+      // console.log(this.selfTop, scrollContainerHeight, scrollTop, top);
 
       if (top < 0) {
         isBottomFixed = false;
@@ -177,8 +196,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     if (this.scrollEl instanceof Window) {
       return offsetBottom;
     } else {
-      const bottom =
-        window.document.documentElement.offsetHeight - this.scrollEl.getBoundingClientRect().bottom;
+      const bottom = window.document.documentElement.clientHeight - this.scrollEl.getBoundingClientRect().bottom;
       return bottom + offsetBottom;
     }
   }
@@ -192,10 +210,13 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         ref={(el: HTMLDivElement) => {
           this.el = el;
         }}
-        style={Object.assign(style, {
-          top: isTopFixed ? `${this.getTop()}px` : 'auto',
-          bottom: isBottomFixed ? `${this.getBottom()}px` : 'auto',
-        })}
+        style={Object.assign(
+          {
+            top: isTopFixed ? `${this.getTop()}px` : 'auto',
+            bottom: isBottomFixed ? `${this.getBottom()}px` : 'auto',
+          },
+          style,
+        )}
         className={classNames(
           ClassName,
           isTopFixed || isBottomFixed ? 'Fixed' : '',
