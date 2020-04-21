@@ -1,3 +1,5 @@
+// demo的路由
+
 import { browserConfig } from '@ctsj/router';
 
 // @ts-ignore
