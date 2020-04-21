@@ -1,7 +1,6 @@
 import React from 'react';
 
 import './anchornav.less';
-import has = Reflect.has;
 
 const selectorPrefix = 'AnchorNav';
 

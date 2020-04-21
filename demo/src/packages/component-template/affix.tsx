@@ -5,7 +5,7 @@ import { IAffixProps, IAffixState } from './types';
 
 /**
  * Affix
- * @class Affix
+ * @class ConfigProvider
  * @classdesc Affix
  */
 class Affix extends React.Component<IAffixProps, IAffixState> {

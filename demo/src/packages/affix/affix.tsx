@@ -4,14 +4,13 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { IAffixProps, IAffixState, targetType } from './types';
-import Constant from '../constant';
+import { ConfigConsumer } from '../config-provider/context';
 
 const Name = 'Affix';
-const ClassName = `${Constant.PREFIX}${Name}`;
 
 /**
  * Affix
- * @class Affix
+ * @class ConfigProvider
  * @classdesc Affix
  */
 class Affix extends React.Component<IAffixProps, IAffixState> {
@@ -195,15 +194,15 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
     if (this.scrollEl instanceof Window) {
       return offsetBottom;
     } else {
-      const bottom = window.document.documentElement.clientHeight - this.scrollEl.getBoundingClientRect().bottom;
+      const bottom =
+        window.document.documentElement.clientHeight - this.scrollEl.getBoundingClientRect().bottom;
       return bottom + offsetBottom;
     }
   }
 
-  render(): React.ReactElement {
+  renderAffix = ({ getPrefixCls }) => {
     const { children, className = '', style = {} } = this.props;
     const { isTopFixed, isBottomFixed } = this.state;
-
     return (
       <div
         ref={(el: HTMLDivElement) => {
@@ -217,7 +216,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
           style,
         )}
         className={classNames(
-          ClassName,
+          getPrefixCls(Name),
           isTopFixed || isBottomFixed ? 'Fixed' : '',
           ...className.split(' '),
         )}
@@ -225,6 +224,10 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         {children}
       </div>
     );
+  };
+
+  render(): React.ReactElement {
+    return <ConfigConsumer>{this.renderAffix}</ConfigConsumer>;
   }
 }
 

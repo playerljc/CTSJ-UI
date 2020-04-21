@@ -1,8 +1,10 @@
 import React from 'react';
 
+// @ts-ignore
+import { ConfigProvider } from '@ctsj/ui';
+
 import Header from './header';
 import Nav from './nav';
-import AnchorNav from './anchornav';
 import Footer from './footer';
 
 import './app.less';
@@ -27,20 +29,22 @@ class App extends React.PureComponent {
     | undefined {
     const { children } = this.props;
     return (
-      <div className={selectorPrefix}>
-        <div className={`${selectorPrefix}-Header`}>
-          <Header />
-        </div>
-        <div className={`${selectorPrefix}-Body`}>
-          <div className={`${selectorPrefix}-Nav`}>
-            <Nav />
+      <ConfigProvider local="zh-CN">
+        <div className={selectorPrefix}>
+          <div className={`${selectorPrefix}-Header`}>
+            <Header />
           </div>
-          <div className={`${selectorPrefix}-Main markdown`}>{children}</div>
+          <div className={`${selectorPrefix}-Body`}>
+            <div className={`${selectorPrefix}-Nav`}>
+              <Nav />
+            </div>
+            <div className={`${selectorPrefix}-Main markdown`}>{children}</div>
+          </div>
+          <div className={`${selectorPrefix}-Footer`}>
+            <Footer />
+          </div>
         </div>
-        <div className={`${selectorPrefix}-Footer`}>
-          <Footer />
-        </div>
-      </div>
+      </ConfigProvider>
     );
   }
 }
