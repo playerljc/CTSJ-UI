@@ -1,0 +1,49 @@
+@import '../vars';
+
+.AnchorNav {
+  position: absolute;
+  top: 8px;
+  right: 20px;
+
+  > .AnchorNav-Inner {
+    margin: 16px 0;
+    padding-left: 0;
+    font-size: 12px;
+    list-style: none;
+    border-left: 1px solid #f0f0f0;
+
+    > .AnchorNav-Item {
+      margin-bottom: 4px;
+      margin-left: 0;
+      padding-left: 0;
+      line-height: 1.5;
+      list-style: none;
+
+      > a {
+        display: block;
+        width: 110px;
+        margin-left: -1px;
+        padding-left: 16px;
+        overflow: hidden;
+        color: rgba(0, 0, 0, 0.85);
+        white-space: nowrap;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        transition: all 0.3s ease;
+      }
+
+      &.selected {
+        > a {
+          color: @common-primary-color;
+          border-left: 1px solid @common-primary-color;
+        }
+      }
+
+      &:hover {
+        > a {
+          color: @common-primary-color;
+        }
+      }
+    }
+  }
+}

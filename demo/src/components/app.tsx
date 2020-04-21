@@ -36,9 +36,6 @@ class App extends React.PureComponent {
             <Nav />
           </div>
           <div className={`${selectorPrefix}-Main markdown`}>{children}</div>
-          <div className={`${selectorPrefix}-AnchorNav`}>
-            <AnchorNav />
-          </div>
         </div>
         <div className={`${selectorPrefix}-Footer`}>
           <Footer />

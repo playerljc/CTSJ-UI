@@ -1,12 +1,32 @@
 import React from 'react';
 
 import ExamplePanel from '../../../components/examplepanel';
+import AnchorNav, { IEntry } from '../../../components/anchornav';
 
 import BaseDemo, { Config as BaseDemoConfig } from './basedemo';
 import CallBackDemo, { Config as CallBackDemoConfig } from './callbackdemo';
 import TargetDemo, { Config as TargetDemoConfig } from './targetdemo';
 
 import './index.less';
+
+const AnchorData: IEntry[] = [
+  {
+    name: '基本',
+    anchor: 'base',
+  },
+  {
+    name: '固定状态改变的回调',
+    anchor: 'callback',
+  },
+  {
+    name: '滚动容器',
+    anchor: 'target',
+  },
+  {
+    name: 'API',
+    anchor: 'api',
+  },
+];
 
 /**
  * Demo
@@ -15,6 +35,11 @@ import './index.less';
  */
 class Demo extends React.PureComponent {
   el: HTMLDivElement | null = null;
+
+  constructor(props) {
+    super(props);
+    console.log(333333333333333);
+  }
 
   render():
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
@@ -52,18 +77,21 @@ class Demo extends React.PureComponent {
         <section className="markdown">
           <h2 data-scrollama-index="1">代码演示</h2>
           <ExamplePanel
+            id="base"
             demo={<BaseDemo />}
             code={BaseDemoConfig.code}
             title={BaseDemoConfig.title}
             description={BaseDemoConfig.description}
           />
           <ExamplePanel
+            id="callback"
             demo={<CallBackDemo />}
             code={CallBackDemoConfig.code}
             title={CallBackDemoConfig.title}
             description={CallBackDemoConfig.description}
           />
           <ExamplePanel
+            id="target"
             demo={<TargetDemo />}
             code={TargetDemoConfig.code}
             title={TargetDemoConfig.title}
@@ -71,7 +99,7 @@ class Demo extends React.PureComponent {
           />
         </section>
 
-        <section className="markdown api-container">
+        <section className="markdown api-container" id="api">
           <h2 data-scrollama-index="1">API</h2>
           <table>
             <thead>
@@ -110,6 +138,8 @@ class Demo extends React.PureComponent {
             </tbody>
           </table>
         </section>
+
+        <AnchorNav data={AnchorData} />
       </div>
     );
   }

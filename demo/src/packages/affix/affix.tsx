@@ -118,7 +118,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
 
       let isTopFixed: boolean = false;
 
-      console.log(this.selfTop, scrollTop, top);
+      // console.log(this.selfTop, scrollTop, top);
 
       if (scrollTop >= top) {
         isTopFixed = true;
