@@ -59,7 +59,6 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
   setTarget(target: targetType): void {
     // 设置target
     window.setTimeout(() => {
-      debugger;
       if (target) {
         this.scrollEl = target();
       }
