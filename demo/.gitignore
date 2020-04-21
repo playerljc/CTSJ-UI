@@ -37,3 +37,5 @@ npm-debug
 **/node_modules
 **/dist
 **/assets
+
+~$ReactUI.xlsx

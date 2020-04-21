@@ -1,5 +1,7 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+// @ts-ignore
+import {Icon} from '@ctsj/ui';
 
 import './examplepanel.less';
 
@@ -64,8 +66,9 @@ class ExamplePanel extends React.PureComponent<IProps, IState> {
               <span className="code-expand-icon fa fa-copy" title="复制代码" />
             </CopyToClipboard>
 
-            <span
-              className="code-expand-icon fa fa-code"
+            <Icon
+              type="code"
+              className="code-expand-icon"
               title="显示代码"
               onClick={this.onExpandCode}
             />
