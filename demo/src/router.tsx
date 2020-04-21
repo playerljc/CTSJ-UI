@@ -6,6 +6,8 @@ import { browserConfig } from '@ctsj/router';
 import App from '@/components/app';
 // @ts-ignore
 import Affix from '@ctsj/ui/affix/demo';
+// @ts-ignore
+import Icon from '@ctsj/ui/icon/demo';
 
 // @ts-ignore
 const config = [
@@ -21,6 +23,10 @@ const config = [
         path: '/affix',
         component: Affix,
       },
+      {
+        path: '/icon',
+        component: Icon,
+      }
     ],
   },
 ];

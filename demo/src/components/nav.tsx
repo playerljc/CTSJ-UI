@@ -5,24 +5,26 @@ import './nav.less';
 
 const selectorPrefix = 'Nav';
 
-const ComponentNames = ['affix'];
-
-/**
- * IState
- */
-interface IState {
-  activeCode: string;
-}
+const ComponentNames = ['affix', 'icon'];
 
 /**
  * Nav
  * @class Nav
  * @classdesc Nav
  */
-class Nav extends React.PureComponent<any, IState> {
-  state: IState = {
-    activeCode: ComponentNames[0],
-  };
+class Nav extends React.PureComponent<any, any> {
+  /**
+   * getActiveCode
+   * @return string
+   */
+  getActiveCode(): string {
+    const names = window.location.pathname.split('/');
+    if(names.length >= 2) {
+      return names[1];
+    } else {
+      return '';
+    }
+  }
 
   render():
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
@@ -34,19 +36,11 @@ class Nav extends React.PureComponent<any, IState> {
     | boolean
     | null
     | undefined {
-    const {activeCode} = this.state;
+    const activeCode = this.getActiveCode();
     return (
       <div className={selectorPrefix}>
         {ComponentNames.map((t) => (
-          <div
-            key={t}
-            className={`${selectorPrefix}-Item ${activeCode === t ? 'selected': ''}`}
-            onClick={() => {
-              this.setState({
-                activeCode: t,
-              });
-            }}
-          >
+          <div key={t} className={`${selectorPrefix}-Item ${activeCode === t ? 'selected' : ''}`}>
             <Link to={`/${t}`}>{t}</Link>
           </div>
         ))}

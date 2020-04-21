@@ -18,7 +18,7 @@ class Icon extends React.Component<IConProps> {
     const { children, className = '', type, ...other } = this.props;
     return (
       <i
-        className={classNames(getPrefixCls(Name), `fa fa-${type}`, ...className.split(' '))}
+        className={classNames(getPrefixCls(Name), `fas fa fa-${type}`, ...className.split(' '))}
         {...other}
       >
         {children}
