@@ -6,6 +6,7 @@
  * @classdesc ConfigConsumerProps
  */
 export interface ConfigConsumerProps extends IProps {
+  // 设置组件的根样式
   getPrefixCls: (cls: string) => string;
 }
 

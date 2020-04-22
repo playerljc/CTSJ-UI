@@ -13,6 +13,11 @@ import { ConfigContext } from './context';
 class ConfigProvider extends React.Component<IProps, any> {
   getValue(): ConfigConsumerProps {
     return {
+      /**
+       * getPrefixCls - 设置组件的根样式
+       * @param cls - 组件的名称
+       * @return string
+       */
       getPrefixCls(cls: string): string {
         return `ctsj-ui-${cls}`;
       },
