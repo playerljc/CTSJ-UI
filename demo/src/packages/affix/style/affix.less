@@ -2,9 +2,10 @@
 @import "./vars";
 @import "./mixin";
 
-.@{common-prefix}Affix {
-  &.Fixed {
+.@{common-prefix}affix {
+  &.fixed {
     position: fixed;
     z-index: @common-zIndex;
+    color: revert;
   }
 }

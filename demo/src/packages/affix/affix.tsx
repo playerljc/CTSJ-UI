@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { IAffixProps, IAffixState, targetType } from './types';
 import { ConfigConsumer } from '../config-provider/context';
 
-const Name = 'Affix';
+const Name = 'affix';
 
 /**
  * Affix
@@ -217,7 +217,7 @@ class Affix extends React.Component<IAffixProps, IAffixState> {
         )}
         className={classNames(
           getPrefixCls(Name),
-          isTopFixed || isBottomFixed ? 'Fixed' : '',
+          isTopFixed || isBottomFixed ? 'fixed' : '',
           ...className.split(' '),
         )}
       >

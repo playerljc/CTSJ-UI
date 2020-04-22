@@ -1,0 +1,72 @@
+/* 组件less的实现 */
+@import './vars';
+@import './mixin';
+
+.@{common-prefix}layout {
+  display: flex;
+  // layout是column排列
+  flex-direction: column;
+  box-sizing: border-box;
+  color: #fff;
+
+  &.auto {
+    flex-grow: 1;
+  }
+
+  > .@{common-prefix}layout,
+  .@{common-prefix}layout-content {
+    &.auto {
+      min-height: 0;
+      overflow: auto;
+    }
+  }
+
+  > .@{common-prefix}layout-header,
+  .@{common-prefix}layout-footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  > .@{common-prefix}layout-header {
+    min-height: @layout-header-min-height;
+    padding: 0 50px;
+    background-color: @layout-header-background-color;
+  }
+
+  > .@{common-prefix}layout-footer {
+    min-height: @layout-footer-min-height;
+    padding: 24px 50px;
+    background-color: @layout-footer-background-color;
+  }
+}
+
+.@{common-prefix}layout-content {
+  display: flex;
+  // content是row排列
+  flex-direction: row;
+  box-sizing: border-box;
+  min-height: @layout-content-min-height;
+  background-color: @layout-content-background-color;
+
+  &.auto {
+    flex-grow: 1;
+  }
+
+  > .@{common-prefix}layout,
+  .@{common-prefix}layout-content {
+    &.auto {
+      min-width: 0;
+      overflow: auto;
+    }
+  }
+
+  > .@{common-prefix}layout-sider {
+    display: flex;
+    box-sizing: border-box;
+    min-width: @layout-sider-min-width;
+    background-color: @layout-sider-background-color;
+  }
+}

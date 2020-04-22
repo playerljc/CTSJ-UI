@@ -7,8 +7,6 @@ import Header from './header';
 import Nav from './nav';
 import Footer from './footer';
 
-import './app.less';
-
 const selectorPrefix = 'Demo';
 
 /**

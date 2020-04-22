@@ -51,6 +51,7 @@ class AnchorNav extends React.PureComponent<IProps, any> {
             <li
               className={`${selectorPrefix}-Item ${activeCode === t.anchor ? 'selected' : ''}`}
               key={t.anchor}
+              title={t.name}
             >
               <a href={`#${t.anchor}`}>{t.name}</a>
             </li>

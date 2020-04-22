@@ -5,7 +5,7 @@ import './nav.less';
 
 const selectorPrefix = 'Nav';
 
-const ComponentNames = ['affix', 'icon'];
+const ComponentNames = ['affix', 'icon', 'layout'];
 
 /**
  * Nav

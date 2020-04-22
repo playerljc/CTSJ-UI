@@ -8,6 +8,8 @@ import App from '@/components/app';
 import Affix from '@ctsj/ui/affix/demo';
 // @ts-ignore
 import Icon from '@ctsj/ui/icon/demo';
+// @ts-ignore
+import Layout from '@ctsj/ui/layout/demo';
 
 // @ts-ignore
 const config = [
@@ -26,7 +28,11 @@ const config = [
       {
         path: '/icon',
         component: Icon,
-      }
+      },
+      {
+        path: '/layout',
+        component: Layout,
+      },
     ],
   },
 ];

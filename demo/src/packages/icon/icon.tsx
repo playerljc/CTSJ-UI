@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { IConProps } from './types';
 import { ConfigConsumer } from '../config-provider/context';
 
-const Name = 'Icon';
+const Name = 'icon';
 
 /**
  * Icon
