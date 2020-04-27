@@ -3,7 +3,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { ICommonProps } from './types';
+import { ICommonProps } from '../types';
 import { ConfigConsumer } from '../config-provider/context';
 
 const Name = 'layout-sider';

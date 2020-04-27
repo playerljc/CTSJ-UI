@@ -1,0 +1,17 @@
+/* 组件less函数的定义 */
+@import './vars';
+@import '../../style/mixin';
+
+.loop-grid-columns(@index) when (@index > 0) {
+  .@{common-prefix}col-@{index} {
+    display: block;
+    flex: 0 0 percentage((@index / @grid-columns));
+    max-width: percentage((@index / @grid-columns));
+  }
+
+  .@{common-prefix}col-offset-@{index} {
+    margin-left: percentage((@index / @grid-columns));
+  }
+
+  .loop-grid-columns((@index - 1));
+}

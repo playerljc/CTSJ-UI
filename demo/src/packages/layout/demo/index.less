@@ -1,3 +1,32 @@
+@import '../style/vars';
+
 .LayoutDemo {
+  @layout-header-background-color: #7dbcea;
+  @layout-footer-background-color: #7dbcea;
+  @layout-content-background-color: rgba(16, 142, 233, 1);
+  @layout-sider-background-color: #3ba0e9;
+
   position: relative;
+
+  .@{common-prefix}layout {
+    > .@{common-prefix}layout-header {
+      color: #fff;
+      background-color: @layout-header-background-color;
+    }
+
+    > .@{common-prefix}layout-footer {
+      color: #fff;
+      background-color: @layout-footer-background-color;
+    }
+  }
+
+  .@{common-prefix}layout-content {
+    color: #fff;
+    background-color: @layout-content-background-color;
+
+    > .@{common-prefix}layout-sider {
+      color: #fff;
+      background-color: @layout-sider-background-color;
+    }
+  }
 }

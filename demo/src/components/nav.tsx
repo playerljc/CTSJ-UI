@@ -5,7 +5,24 @@ import './nav.less';
 
 const selectorPrefix = 'Nav';
 
-const ComponentNames = ['affix', 'icon', 'layout'];
+const ComponentNames = [
+  {
+    name: 'affix',
+    label: '固钉',
+  },
+  {
+    name: 'icon',
+    label: '图标',
+  },
+  {
+    name: 'layout',
+    label: '布局',
+  },
+  {
+    name: 'grid',
+    label: '栅格',
+  }
+];
 
 /**
  * Nav
@@ -19,7 +36,7 @@ class Nav extends React.PureComponent<any, any> {
    */
   getActiveCode(): string {
     const names = window.location.pathname.split('/');
-    if(names.length >= 2) {
+    if (names.length >= 2) {
       return names[1];
     } else {
       return '';
@@ -40,8 +57,11 @@ class Nav extends React.PureComponent<any, any> {
     return (
       <div className={selectorPrefix}>
         {ComponentNames.map((t) => (
-          <div key={t} className={`${selectorPrefix}-Item ${activeCode === t ? 'selected' : ''}`}>
-            <Link to={`/${t}`}>{t}</Link>
+          <div key={t.name} className={`${selectorPrefix}-Item ${activeCode === t.name ? 'selected' : ''}`}>
+            <Link to={`/${t.name}`}>
+              {t.name}
+              <span>{t.label}</span>
+            </Link>
           </div>
         ))}
       </div>

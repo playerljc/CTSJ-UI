@@ -10,6 +10,8 @@ import Affix from '@ctsj/ui/affix/demo';
 import Icon from '@ctsj/ui/icon/demo';
 // @ts-ignore
 import Layout from '@ctsj/ui/layout/demo';
+// @ts-ignore
+import Grid from '@ctsj/ui/grid/demo';
 
 // @ts-ignore
 const config = [
@@ -33,6 +35,10 @@ const config = [
         path: '/layout',
         component: Layout,
       },
+      {
+        path: '/grid',
+        component: Grid,
+      }
     ],
   },
 ];

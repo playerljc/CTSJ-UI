@@ -3,6 +3,7 @@
 import Affix from './affix';
 import Icon from './icon';
 import Layout from './layout';
+import { Row, Col } from './grid';
 import ConfigProvider from './config-provider';
 
-export { Affix, Icon, Layout, ConfigProvider };
+export { Affix, Icon, Layout, Row, Col, ConfigProvider };

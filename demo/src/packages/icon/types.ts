@@ -1,11 +1,9 @@
 /* 组件typescript类型的定义 */
+import { ICommonProps } from '../types';
 
 /**
  * IConProps
  * @class IConProps
  * @classdesc IConProps
  */
-export interface IConProps {
-  className?: string;
-  type?: string;
-}
+export interface IConProps extends ICommonProps {}

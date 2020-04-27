@@ -7,7 +7,6 @@
   // layout是column排列
   flex-direction: column;
   box-sizing: border-box;
-  color: #fff;
 
   &.auto {
     flex-grow: 1;
@@ -33,13 +32,13 @@
   > .@{common-prefix}layout-header {
     min-height: @layout-header-min-height;
     padding: 0 50px;
-    background-color: @layout-header-background-color;
+    background-color: @component-background;
   }
 
   > .@{common-prefix}layout-footer {
     min-height: @layout-footer-min-height;
     padding: 24px 50px;
-    background-color: @layout-footer-background-color;
+    background-color: @component-background;
   }
 }
 
@@ -49,7 +48,7 @@
   flex-direction: row;
   box-sizing: border-box;
   min-height: @layout-content-min-height;
-  background-color: @layout-content-background-color;
+  background-color: @component-background;
 
   &.auto {
     flex-grow: 1;
@@ -67,6 +66,6 @@
     display: flex;
     box-sizing: border-box;
     min-width: @layout-sider-min-width;
-    background-color: @layout-sider-background-color;
+    background-color: @component-background;
   }
 }
