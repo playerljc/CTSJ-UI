@@ -164,45 +164,81 @@ class Demo extends React.PureComponent {
           />
         </section>
 
-        <section className="markdown api-container" id="api">
-          <h2 data-scrollama-index="1">API</h2>
-          <table>
-            <thead>
+        <div id="api">
+          <section className="markdown api-container">
+            <h2>Row</h2>
+            <table>
+              <thead>
               <tr>
                 <th>成员</th>
                 <th>说明</th>
                 <th>类型</th>
                 <th>默认值</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
               <tr>
-                <td>offsetBottom</td>
-                <td>距离窗口底部达到指定偏移量后触发</td>
+                <td>align</td>
+                <td>垂直对齐方式</td>
+                <td>'top' | 'middle' | 'bottom'</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>gutter</td>
+                <td>栅格间隔</td>
+                <td>number | [number, number]</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>justify</td>
+                <td>水平排列方式</td>
+                <td>'start' | 'end' | 'center' | 'space-around' | 'space-between'</td>
+                <td>-</td>
+              </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section className="markdown api-container">
+            <h2>Col</h2>
+            <table>
+              <thead>
+              <tr>
+                <th>成员</th>
+                <th>说明</th>
+                <th>类型</th>
+                <th>默认值</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>flex</td>
+                <td>flex 布局属性</td>
+                <td>number | string;</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>offset</td>
+                <td>栅格左侧的间隔格数，间隔内不可以有栅格</td>
                 <td>number</td>
                 <td>-</td>
               </tr>
               <tr>
-                <td>offsetTop</td>
-                <td>距离窗口顶部达到指定偏移量后触发</td>
+                <td>order</td>
+                <td>栅格顺序</td>
                 <td>number</td>
                 <td>-</td>
               </tr>
               <tr>
-                <td>target</td>
-                <td>设置 Grid 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数</td>
-                <td>() => HTMLElement</td>
-                <td>() => window</td>
-              </tr>
-              <tr>
-                <td>onChange</td>
-                <td>固定状态改变时触发的回调函数</td>
-                <td>Function(affixed)</td>
+                <td>span</td>
+                <td>栅格占位格数，为 0 时相当于 display: none</td>
+                <td>number</td>
                 <td>-</td>
               </tr>
-            </tbody>
-          </table>
-        </section>
+              </tbody>
+            </table>
+          </section>
+        </div>
 
         <AnchorNav data={AnchorData} />
       </div>
