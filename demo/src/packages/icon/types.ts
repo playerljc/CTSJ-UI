@@ -6,4 +6,6 @@ import { ICommonProps } from '../types';
  * @class IConProps
  * @classdesc IConProps
  */
-export interface IConProps extends ICommonProps {}
+export interface IConProps extends ICommonProps {
+  type: string;
+}

@@ -12,7 +12,7 @@ interface IProps {
   demo?: React.ReactElement | null;
   code?: string;
   title?: string;
-  description?: string;
+  description?: JSX.Element | string;
 }
 
 interface IState {
@@ -59,7 +59,7 @@ class ExamplePanel extends React.PureComponent<IProps, IState> {
         <div className={`${selectorPrefix}-Mate`}>
           <section className={`${selectorPrefix}-Mate-Title`}>{title}</section>
           <section className={`${selectorPrefix}-Mate-Description`}>
-            <p>{description}</p>
+            <div>{description}</div>
           </section>
           <section className={`${selectorPrefix}-Mate-Actions`}>
             <CopyToClipboard text={code} onCopy={() => alert('复制成功!')}>

@@ -4,6 +4,13 @@ import ExamplePanel from '../../../components/examplepanel';
 import AnchorNav, { IEntry } from '../../../components/anchornav';
 
 import BaseDemo, { Config as BaseDemoConfig } from './basedemo';
+import GutterDemo, { Config as GutterDemoConfig } from './gutterdemo';
+import OffsetDemo, { Config as OffsetDemoConfig } from './offsetdemo';
+import FlexDemo, {Config as FlexDemoConfig} from './flexdemo';
+import AlignDemo, {Config as AlignDemoConfig} from './aligndemo';
+import OrderDemo, {Config as OrderDemoConfig} from './orderdemo';
+import FillDemo, {Config as FillDemoConfig} from './filldemo';
+import ConfigDemo,{Config as ConfigDemoConfig} from './configdemo';
 
 import './index.less';
 
@@ -105,6 +112,55 @@ class Demo extends React.PureComponent {
             code={BaseDemoConfig.code}
             title={BaseDemoConfig.title}
             description={BaseDemoConfig.description}
+          />
+          <ExamplePanel
+            id="gutter"
+            demo={<GutterDemo />}
+            code={GutterDemoConfig.code}
+            title={GutterDemoConfig.title}
+            description={GutterDemoConfig.description}
+          />
+          <ExamplePanel
+            id="offset"
+            demo={<OffsetDemo />}
+            code={OffsetDemoConfig.code}
+            title={OffsetDemoConfig.title}
+            description={OffsetDemoConfig.description}
+          />
+          <ExamplePanel
+            id="flex"
+            demo={<FlexDemo />}
+            code={FlexDemoConfig.code}
+            title={FlexDemoConfig.title}
+            description={FlexDemoConfig.description}
+          />
+          <ExamplePanel
+            id="align"
+            demo={<AlignDemo />}
+            code={AlignDemoConfig.code}
+            title={AlignDemoConfig.title}
+            description={AlignDemoConfig.description}
+          />
+          <ExamplePanel
+            id="order"
+            demo={<OrderDemo />}
+            code={OrderDemoConfig.code}
+            title={OrderDemoConfig.title}
+            description={OrderDemoConfig.description}
+          />
+          <ExamplePanel
+            id="fill"
+            demo={<FillDemo />}
+            code={FillDemoConfig.code}
+            title={FillDemoConfig.title}
+            description={FillDemoConfig.description}
+          />
+          <ExamplePanel
+            id="config"
+            demo={<ConfigDemo />}
+            code={ConfigDemoConfig.code}
+            title={ConfigDemoConfig.title}
+            description={ConfigDemoConfig.description}
           />
         </section>
 
