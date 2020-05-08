@@ -12,6 +12,8 @@ import Icon from '@ctsj/ui/icon/demo';
 import Layout from '@ctsj/ui/layout/demo';
 // @ts-ignore
 import Grid from '@ctsj/ui/grid/demo';
+// @ts-ignore
+import Divider from '@ctsj/ui/divider/demo';
 
 // @ts-ignore
 const config = [
@@ -38,7 +40,11 @@ const config = [
       {
         path: '/grid',
         component: Grid,
-      }
+      },
+      {
+        path: '/divider',
+        component: Divider,
+      },
     ],
   },
 ];

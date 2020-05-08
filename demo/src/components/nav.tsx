@@ -21,7 +21,11 @@ const ComponentNames = [
   {
     name: 'grid',
     label: '栅格',
-  }
+  },
+  {
+    name: 'divider',
+    label: '分割线',
+  },
 ];
 
 /**
@@ -57,7 +61,10 @@ class Nav extends React.PureComponent<any, any> {
     return (
       <div className={selectorPrefix}>
         {ComponentNames.map((t) => (
-          <div key={t.name} className={`${selectorPrefix}-Item ${activeCode === t.name ? 'selected' : ''}`}>
+          <div
+            key={t.name}
+            className={`${selectorPrefix}-Item ${activeCode === t.name ? 'selected' : ''}`}
+          >
             <Link to={`/${t.name}`}>
               {t.name}
               <span>{t.label}</span>

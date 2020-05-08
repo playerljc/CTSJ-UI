@@ -15,19 +15,6 @@
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "prettier": "prettier -c --write \"**/*\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.less": "stylelint --syntax less",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": [
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/playerljc/CTUI.git"

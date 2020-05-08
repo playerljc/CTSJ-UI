@@ -1,0 +1,10 @@
+/* 组件less函数的定义 */
+@import '../../style/mixin';
+@import './vars';
+
+.divider-border() {
+  display: table-cell;
+  width: 50%;
+  border-top: @border-width-base @border-style-base @border-color-base;
+  content: '';
+}
